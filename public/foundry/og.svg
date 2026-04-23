@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F9F9FA"/>
+  <rect x="80" y="80" width="80" height="80" rx="20" fill="#000000"/>
+  <path d="M102 102 H138 V110 H110 V118 H132 V126 H110 V140 H102 Z" fill="#FFFFFF"/>
+  <text x="180" y="140" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="600" fill="#000000">Foundry</text>
+  <text x="80" y="320" font-family="Inter, system-ui, sans-serif" font-size="36" fill="rgba(0,0,0,0.6)">SaaS starter template.</text>
+</svg>
