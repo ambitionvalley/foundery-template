@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Foundry
 
-## Getting Started
+SaaS starter template — Next.js 16 · React 19 · Tailwind 4 · TypeScript strict.
+No integrations pre-wired; opinionated shells and a full design system ready to fork.
 
-First, run the development server:
+## What's in the box
+
+- **Design system** — 19 base primitives + 23 common components, tokens in `globals.css`.
+  Browse locally at `/design` (returns 404 in production).
+- **App shells** — `(marketing)`, `(auth)`, `(app)` route groups with placeholder pages.
+- **Branding** — one file (`src/config/brand.ts`) controls name, description, logo, font.
+- **Env scaffold** — `.env.example` with commented blocks for Supabase, Stripe, Resend.
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit http://localhost:3000 — marketing placeholder.
+Visit http://localhost:3000/design — design system (dev-only).
+Visit http://localhost:3000/login, `/signup`, `/app` — unwired shells.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Fork-and-rebrand checklist
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After clicking "Use this template" on GitHub and cloning the new repo:
 
-## Learn More
+- [ ] Rename `package.json` → set `"name"` to your product slug.
+- [ ] Update `src/config/brand.ts` — `name`, `shortName`, `description`, `url`, `twitter`, `ogImage`.
+- [ ] Replace logos in `public/foundry/` — `logo.svg`, `wordmark.svg`, `og.svg` (swap to a real `og.png` and update `brand.ogImage`).
+- [ ] Rename `public/foundry/` to match your slug if you prefer, then update `brand.logo.*` paths.
+- [ ] Tune tokens in `src/app/globals.css` — primary color, anything semantic.
+- [ ] Rewrite `src/app/(marketing)/page.tsx` with your real landing page.
+- [ ] Decide whether to keep the `/design` docs in your fork. Delete `src/app/design/` if not.
+- [ ] Delete this "Fork-and-rebrand checklist" section; replace the README with your product's real intro.
 
-To learn more about Next.js, take a look at the following resources:
+## Adding integrations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Foundry ships with no SDKs pre-installed. When you need one:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Supabase** — `pnpm add @supabase/supabase-js @supabase/ssr`, uncomment the
+  Supabase block in `.env`, create `src/lib/supabase/{client,server}.ts`.
+  Use the new key naming: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (client-safe)
+  and `SUPABASE_SECRET_KEY` (server-only).
+- **Stripe** — `pnpm add stripe`, uncomment the Stripe block, create
+  `src/lib/stripe.ts` + `app/api/stripe/webhook/route.ts`.
+- **Resend** — `pnpm add resend react-email @react-email/components`, uncomment
+  the Resend block, create `src/lib/resend.ts`.
 
-## Deploy on Vercel
+Switch `src/env.ts` to zod validation once you depend on any of these.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 App Router · React 19 · Tailwind 4 · TypeScript strict
+- pnpm as package manager
+- ESLint flat config (Next.js default)
