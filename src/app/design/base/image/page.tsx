@@ -3,44 +3,12 @@
 import NextImage from "next/image";
 import { useState, type ReactNode } from "react";
 import { Image, type ImageSize } from "@/components/base/image";
+import { BrandLogo } from "@/components/brand-logo";
+import { brand } from "@/config/brand";
 
 const SAMPLE_SRC = "/figma/byewind-avatar.png";
 
 const SIZES: ImageSize[] = [12, 16, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80];
-
-function SnowUILogo() {
-  return (
-    <div className="flex items-center gap-[6px]" aria-label="SnowUI">
-      <NextImage
-        src="/figma/snowui-logo.svg"
-        alt=""
-        width={28}
-        height={28}
-        priority
-      />
-      <div className="relative h-[12px] w-[71px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-left.svg"
-          alt=""
-          width={53}
-          height={12}
-          className="absolute top-0 left-0 block"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-right.svg"
-          alt=""
-          width={15}
-          height={12}
-          className="absolute top-0 block"
-          style={{ left: "56px" }}
-        />
-      </div>
-    </div>
-  );
-}
-
 type DocRow = {
   title: string;
   body: ReactNode;
@@ -297,7 +265,7 @@ export default function ImageShowcasePage() {
               </code>
             </p>
           </div>
-          <SnowUILogo />
+          <BrandLogo priority />
         </header>
 
         <div className="flex flex-col px-[40px]">
