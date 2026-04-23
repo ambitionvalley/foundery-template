@@ -1,5 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
+
+import { BrandLogo } from "@/components/brand-logo";
+import { brand } from "@/config/brand";
 
 type DocEntry = {
   title: string;
@@ -276,38 +278,6 @@ const commonComponents: ComponentEntry[] = [
   },
 ];
 
-function SnowUILogo() {
-  return (
-    <div className="flex items-center gap-[6px]" aria-label="SnowUI">
-      <Image
-        src="/figma/snowui-logo.svg"
-        alt=""
-        width={28}
-        height={28}
-        priority
-      />
-      <div className="relative h-[12px] w-[71px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-left.svg"
-          alt=""
-          width={53}
-          height={12}
-          className="absolute top-0 left-0 block"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-right.svg"
-          alt=""
-          width={15}
-          height={12}
-          className="absolute top-0 block"
-          style={{ left: "56px" }}
-        />
-      </div>
-    </div>
-  );
-}
 
 function EntrySection({
   label,
@@ -389,10 +359,10 @@ export default function DesignIndexPage() {
               Design System
             </h1>
             <p className="text-[14px] leading-[20px] text-black/40">
-              Documentation for the Intakely design system.
+              Documentation for the {brand.name} design system.
             </p>
           </div>
-          <SnowUILogo />
+          <BrandLogo priority />
         </header>
 
         <nav className="flex flex-col px-[40px]">
