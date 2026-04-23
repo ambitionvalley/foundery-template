@@ -1,5 +1,6 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
+import { BrandLogo } from "@/components/brand-logo";
+import { brand } from "@/config/brand";
 
 type Row = {
   title: string;
@@ -15,7 +16,7 @@ const rows: Row[] = [
     body: (
       <>
         <p>
-          In SnowUI, we use variables to control color, spacing, icon size, and
+          In {brand.name}, we use variables to control color, spacing, icon size, and
           corner radius. These are key parts of the design system.
         </p>
         <p>
@@ -121,39 +122,6 @@ function RulesLink() {
   );
 }
 
-function SnowUILogo() {
-  return (
-    <div className="flex items-center gap-[6px]" aria-label="SnowUI">
-      <Image
-        src="/figma/snowui-logo.svg"
-        alt=""
-        width={28}
-        height={28}
-        priority
-      />
-      <div className="relative h-[12px] w-[71px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-left.svg"
-          alt=""
-          width={53}
-          height={12}
-          className="absolute top-0 left-0 block"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-right.svg"
-          alt=""
-          width={15}
-          height={12}
-          className="absolute top-0 block"
-          style={{ left: "56px" }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function VariablesPage() {
   return (
     <div className="flex min-h-screen justify-center bg-white p-4 sm:p-8 lg:p-12">
@@ -175,16 +143,16 @@ export default function VariablesPage() {
             <p className="text-[14px] leading-[20px] text-black/40">
               <a
                 className="cursor-pointer hover:underline"
-                href="https://snowui.byewind.com"
+                href={brand.url}
                 target="_blank"
                 rel="noreferrer"
               >
-                snowui.byewind.com/variables
+                Design docs
               </a>
               <span className="ml-0.5">↗</span>
             </p>
           </div>
-          <SnowUILogo />
+          <BrandLogo priority />
         </header>
 
         <div className="flex flex-col px-[40px]" data-node-id="60755:5389">

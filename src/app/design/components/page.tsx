@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Fragment, type ReactNode } from "react";
+import { BrandLogo } from "@/components/brand-logo";
+import { brand } from "@/config/brand";
 
 type DocRow = {
   title: ReactNode;
@@ -8,33 +10,6 @@ type DocRow = {
   divider?: "hairline" | "emphasis" | "none";
   padding?: "default" | "spacer-top" | "spacer-top-bottom";
 };
-
-function SnowUILogo() {
-  return (
-    <div className="flex items-center gap-[6px]" aria-label="SnowUI">
-      <Image src="/figma/snowui-logo.svg" alt="" width={28} height={28} priority />
-      <div className="relative h-[12px] w-[71px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-left.svg"
-          alt=""
-          width={53}
-          height={12}
-          className="absolute top-0 left-0 block"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-right.svg"
-          alt=""
-          width={15}
-          height={12}
-          className="absolute top-0 block"
-          style={{ left: "56px" }}
-        />
-      </div>
-    </div>
-  );
-}
 
 type MiniButtonProps = {
   leading: ReactNode;
@@ -172,7 +147,7 @@ const docRows: DocRow[] = [
             as possible.
           </p>
           <p>
-            The design logic of SnowUI components is to make the most
+            The design logic of {brand.name} components is to make the most
             frequently used combinations into base components, and then make
             other components and page elements from the base components.
           </p>
@@ -232,7 +207,7 @@ const docRows: DocRow[] = [
     body: (
       <>
         <p>
-          The base components of SnowUI, they are the most frequently used
+          The base components of {brand.name}, they are the most frequently used
           components, and most of the page elements are made of them.
         </p>
         <p>
@@ -341,16 +316,16 @@ export default function ComponentsPage() {
             <p className="text-[14px] leading-[20px] text-black/40">
               <a
                 className="cursor-pointer hover:underline"
-                href="https://snowui.byewind.com"
+                href={brand.url}
                 target="_blank"
                 rel="noreferrer"
               >
-                snowui.byewind.com/components
+                Design docs
               </a>
               <span className="ml-0.5">↗</span>
             </p>
           </div>
-          <SnowUILogo />
+          <BrandLogo priority />
         </header>
 
         <div className="flex flex-col px-[40px]">

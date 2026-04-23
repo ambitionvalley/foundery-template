@@ -1,5 +1,6 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
+import { BrandLogo } from "@/components/brand-logo";
+import { brand } from "@/config/brand";
 
 type DocRow = {
   title: string;
@@ -29,14 +30,14 @@ const docRows: DocRow[] = [
     body: (
       <>
         <p>
-          The design resources currently contained in the SnowUI Library can be
-          integrated with the design of SnowUI, please use it according to the
+          The design resources in this component library are designed to
+          integrate with the overall design system; use them according to your
           design needs.
         </p>
         <p>&nbsp;</p>
         <p>
           You can add other design resources, but please make sure that their
-          design styles can be integrated into SnowUI&apos;s design.
+          design styles fit the system.
         </p>
       </>
     ),
@@ -48,18 +49,17 @@ const docRows: DocRow[] = [
     body: (
       <>
         <p>
-          All design resources are in SnowUI Library files and published as
-          component libraries.
+          All design resources are published as component libraries.
         </p>
         <p>
-          You can use SnowUI Library as a local component library, or as an
-          online component library (default).
+          You can use the component library locally, or as an online component
+          library (default).
         </p>
         <p>
-          When SnowUI Library is used as an online component library, you will
-          receive update notifications. Usually these updates will not affect
-          your design, but there will inevitably be exceptions. It is a safer
-          way to use it as a local component library.
+          When used as an online component library, you will receive update
+          notifications. Usually these updates will not affect your design, but
+          there will inevitably be exceptions. Using it as a local component
+          library is the safer option.
         </p>
         <p>&nbsp;</p>
         <p>
@@ -89,7 +89,7 @@ const docRows: DocRow[] = [
   },
   {
     title: "Icons",
-    body: <p>SnowUI uses Phosphor Icons, you can replace it with other icon libraries.</p>,
+    body: <p>We use Phosphor Icons by default; swap in another library if you prefer.</p>,
   },
   {
     title: "Avatars",
@@ -115,33 +115,6 @@ const docRows: DocRow[] = [
     body: <p>Illustrations are free resources from Figma community.</p>,
   },
 ];
-
-function SnowUILogo() {
-  return (
-    <div className="flex items-center gap-[6px]" aria-label="SnowUI">
-      <Image src="/figma/snowui-logo.svg" alt="" width={28} height={28} priority />
-      <div className="relative h-[12px] w-[71px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-left.svg"
-          alt=""
-          width={53}
-          height={12}
-          className="absolute top-0 left-0 block"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-right.svg"
-          alt=""
-          width={15}
-          height={12}
-          className="absolute top-0 block"
-          style={{ left: "56px" }}
-        />
-      </div>
-    </div>
-  );
-}
 
 function DocRowItem({ row }: { row: DocRow }) {
   const padding =
@@ -201,11 +174,11 @@ export default function DesignResourcesPage() {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px] leading-[20px] text-black/40">
               <a
                 className="cursor-pointer hover:underline"
-                href="https://snowui.byewind.com"
+                href={brand.url}
                 target="_blank"
                 rel="noreferrer"
               >
-                snowui.byewind.com/design-resources
+                Design docs
                 <span className="ml-0.5">↗</span>
               </a>
               <a
@@ -214,12 +187,12 @@ export default function DesignResourcesPage() {
                 target="_blank"
                 rel="noreferrer"
               >
-                SnowUI Design Resource
+                Design resources
                 <span className="ml-0.5">↗</span>
               </a>
             </div>
           </div>
-          <SnowUILogo />
+          <BrandLogo priority />
         </header>
 
         <div className="flex flex-col px-[40px]">

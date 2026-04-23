@@ -1,5 +1,6 @@
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
+import { BrandLogo } from "@/components/brand-logo";
+import { brand } from "@/config/brand";
 
 type DocRow = {
   title: string;
@@ -151,33 +152,6 @@ const effectCards: EffectCard[] = [
   },
 ];
 
-function SnowUILogo() {
-  return (
-    <div className="flex items-center gap-[6px]" aria-label="SnowUI">
-      <Image src="/figma/snowui-logo.svg" alt="" width={28} height={28} priority />
-      <div className="relative h-[12px] w-[71px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-left.svg"
-          alt=""
-          width={53}
-          height={12}
-          className="absolute top-0 left-0 block"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/figma/snowui-wordmark-right.svg"
-          alt=""
-          width={15}
-          height={12}
-          className="absolute top-0 block"
-          style={{ left: "56px" }}
-        />
-      </div>
-    </div>
-  );
-}
-
 function DocRowItem({ row }: { row: DocRow }) {
   const padding =
     row.divider === "emphasis" ? "pt-[28px] pb-[48px]" : "py-[28px]";
@@ -270,16 +244,16 @@ export default function EffectStylesPage() {
             <p className="text-[14px] leading-[20px] text-black/40">
               <a
                 className="cursor-pointer hover:underline"
-                href="https://snowui.byewind.com"
+                href={brand.url}
                 target="_blank"
                 rel="noreferrer"
               >
-                snowui.byewind.com/effect-styles
+                Design docs
               </a>
               <span className="ml-0.5">↗</span>
             </p>
           </div>
-          <SnowUILogo />
+          <BrandLogo priority />
         </header>
 
         <div className="flex flex-col px-[40px]">
