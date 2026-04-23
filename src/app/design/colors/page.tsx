@@ -51,9 +51,9 @@ const introRows: IntroRow[] = [
   },
 ];
 
-const THEMES = ["SnowUI-Light", "SnowUI-Dark", "iOS-Light", "iOS-Dark"] as const;
+const THEMES = ["Light", "Dark", "iOS-Light", "iOS-Dark"] as const;
 type Theme = (typeof THEMES)[number];
-const SELECTED_THEMES: ReadonlyArray<Theme> = ["SnowUI-Dark", "iOS-Dark"];
+const SELECTED_THEMES: ReadonlyArray<Theme> = ["Dark", "iOS-Dark"];
 
 type Swatch = {
   label: string;
@@ -73,12 +73,12 @@ const primary: ColorSection = {
   title: "Primary",
   firstSwatchEmphasis: true,
   columns: {
-    "SnowUI-Light": [
+    "Light": [
       { label: "Primary", bg: "#000000", fg: "white", border: true },
       { label: "Color 1", bg: "#edeefc", fg: "black" },
       { label: "Color 2", bg: "#e6f1fd", fg: "black" },
     ],
-    "SnowUI-Dark": [
+    "Dark": [
       { label: "Primary", bg: "#adadfb", fg: "white" },
       { label: "Color 1", bg: "#edeefc", fg: "black" },
       { label: "Color 2", bg: "#e6f1fd", fg: "black" },
@@ -148,8 +148,8 @@ function blackOnLightScale(): Swatch[] {
 const black: ColorSection = {
   title: "Black",
   columns: {
-    "SnowUI-Light": blackScale(),
-    "SnowUI-Dark": whiteOnDarkScale(),
+    "Light": blackScale(),
+    "Dark": whiteOnDarkScale(),
     "iOS-Light": blackScale(),
     "iOS-Dark": whiteOnDarkScale(),
   },
@@ -158,8 +158,8 @@ const black: ColorSection = {
 const white: ColorSection = {
   title: "White",
   columns: {
-    "SnowUI-Light": whiteScale(),
-    "SnowUI-Dark": blackOnLightScale(),
+    "Light": whiteScale(),
+    "Dark": blackOnLightScale(),
     "iOS-Light": whiteScale(),
     "iOS-Dark": blackOnLightScale(),
   },
@@ -188,7 +188,7 @@ function secondaryCol(values: string[]): Swatch[] {
 const secondary: ColorSection = {
   title: "secondary",
   columns: {
-    "SnowUI-Light": secondaryCol([
+    "Light": secondaryCol([
       "#b899eb",
       "#adadfb",
       "#7dbbff",
@@ -199,7 +199,7 @@ const secondary: ColorSection = {
       "#ffb55b",
       "#ff4747",
     ]),
-    "SnowUI-Dark": secondaryCol([
+    "Dark": secondaryCol([
       "#b899eb",
       "#adadfb",
       "#7dbbff",
@@ -238,12 +238,12 @@ const secondary: ColorSection = {
 const background: ColorSection = {
   title: "Background",
   columns: {
-    "SnowUI-Light": [
+    "Light": [
       { label: "Background 1", bg: "#ffffff", fg: "black", border: true },
       { label: "Background 2", bg: "#f9f9fa", fg: "black", border: true },
       { label: "Background 3", bg: "rgba(255,255,255,0.9)", fg: "black", border: true },
     ],
-    "SnowUI-Dark": [
+    "Dark": [
       { label: "Background 1", bg: "#333333", fg: "white" },
       { label: "Background 2", bg: "rgba(255,255,255,0.04)", fg: "black", border: true },
       { label: "Background 3", bg: "rgba(64,64,64,0.9)", fg: "white" },
@@ -265,12 +265,12 @@ const surface: ColorSection = {
   title: "Surface",
   divider: "none",
   columns: {
-    "SnowUI-Light": [
+    "Light": [
       { label: "Surface 1", bg: "#ffffff", fg: "black", border: true },
       { label: "Surface 2", bg: "#f5f5f6", fg: "black", border: true },
       { label: "Surface 3", bg: "#ffffff", fg: "black", border: true },
     ],
-    "SnowUI-Dark": [
+    "Dark": [
       { label: "Surface 1", bg: "rgba(255,255,255,0.1)", fg: "black", border: true },
       { label: "Surface 2", bg: "rgba(255,255,255,0.04)", fg: "black", border: true },
       { label: "Surface 3", bg: "rgba(255,255,255,0.1)", fg: "black", border: true },
