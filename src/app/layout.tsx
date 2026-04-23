@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { brand } from "@/config/brand";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,9 +10,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Intakely Design System — Variables",
-  description:
-    "Variables documentation for the Intakely Design System: colors, spacing, corner radius, typography, and more.",
+  title: {
+    default: brand.name,
+    template: `%s · ${brand.name}`,
+  },
+  description: brand.description,
+  openGraph: {
+    title: brand.name,
+    description: brand.description,
+    url: brand.url,
+    images: [brand.ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: brand.twitter,
+    title: brand.name,
+    description: brand.description,
+    images: [brand.ogImage],
+  },
 };
 
 export default function RootLayout({
