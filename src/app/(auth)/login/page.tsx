@@ -81,18 +81,21 @@ function LoginCard() {
             bg="#8156fa"
             iconSrc="/social/google.svg"
             provider="Google"
+            onSignIn={() => router.push("/app")}
           />
           <SocialButton
             label="Continue with Apple"
             bg="#000000"
             iconSrc="/social/apple.svg"
             provider="Apple"
+            onSignIn={() => router.push("/app")}
           />
           <SocialButton
-            label="Continue with Facebook"
-            bg="#1877f2"
-            iconSrc="/social/facebook.svg"
-            provider="Facebook"
+            label="Continue with Microsoft"
+            bg="#2f2f2f"
+            iconSrc="/social/microsoft.svg"
+            provider="Microsoft"
+            onSignIn={() => router.push("/app")}
           />
         </div>
 
@@ -173,11 +176,13 @@ function SocialButton({
   bg,
   iconSrc,
   provider,
+  onSignIn,
 }: {
   label: string;
   bg: string;
   iconSrc: string;
   provider: string;
+  onSignIn: () => void;
 }) {
   return (
     <Button
@@ -185,7 +190,13 @@ function SocialButton({
       size="large"
       radius={20}
       aria-label={label}
-      onClick={() => console.warn(`TODO: wire ${provider} sign-in`)}
+      // Template placeholder — logs a TODO and simulates a successful sign-in
+      // by navigating via onSignIn. Fork-owners replace with the provider's
+      // real OAuth redirect (Supabase, NextAuth, Clerk, Auth0, …).
+      onClick={() => {
+        console.warn(`TODO: wire ${provider} OAuth`);
+        onSignIn();
+      }}
       className="hover:opacity-90"
       // Inline styles override the filled variant's bg-black + the base shrink-0
       // so the three buttons share width equally within the parent flex row.
