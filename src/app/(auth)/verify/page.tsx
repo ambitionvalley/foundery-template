@@ -2,9 +2,27 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { Suspense } from "react";
 import { Input } from "@/components/common/input";
+
+type VerifyMethod = "email" | "sms";
+
+const FALLBACK_CONTACT: Record<VerifyMethod, string> = {
+  email: "you@example.com",
+  sms: "+1 555 000 0000",
+};
+
+const HELPER_COPY: Record<VerifyMethod, string> = {
+  email:
+    "Please open the link in the email to continue or enter the verification code we sent to",
+  sms: "Enter the verification code we sent to",
+};
+
+const HEADING_COPY: Record<VerifyMethod, string> = {
+  email: "Check your inbox",
+  sms: "Check your text messages",
+};
 
 export default function VerifyPage() {
   return (
@@ -16,12 +34,14 @@ export default function VerifyPage() {
 
 function VerifyCard() {
   const params = useSearchParams();
-  const email = params.get("email") ?? "you@example.com";
+  const method: VerifyMethod = params.get("method") === "sms" ? "sms" : "email";
+  const contact = params.get("contact") ?? FALLBACK_CONTACT[method];
+  const otherMethod: VerifyMethod = method === "email" ? "sms" : "email";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     // TODO: wire verification (OTP check, magic-link handler, etc.)
-    console.warn("TODO: wire verify submit");
+    console.warn(`TODO: wire verify submit (method=${method})`);
   }
 
   return (
@@ -64,7 +84,7 @@ function VerifyCard() {
         onSubmit={handleSubmit}
         className="flex w-full max-w-[313px] flex-col items-center gap-7"
       >
-        <EnvelopeIcon />
+        <MethodIcon method={method} />
 
         <div className="flex w-full flex-col items-center gap-2 text-center">
           <h1
@@ -72,20 +92,19 @@ function VerifyCard() {
             className="text-[24px] leading-[32px] font-semibold text-black"
             style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
           >
-            Check your inbox
+            {HEADING_COPY[method]}
           </h1>
           <p
             className="text-[14px] leading-[20px] text-black"
             style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
           >
-            Please open the link in the email to continue or enter the
-            verification code we sent to
+            {HELPER_COPY[method]}
           </p>
           <p
             className="text-[18px] leading-[28px] font-semibold text-black"
             style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
           >
-            {email}
+            {contact}
           </p>
         </div>
 
@@ -96,7 +115,10 @@ function VerifyCard() {
           style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
         >
           <p className="text-black/20">Resend (60s)</p>
-          <Link href="#" className="text-[#adadfb] hover:text-black">
+          <Link
+            href={`/verify?method=${otherMethod}`}
+            className="text-[#adadfb] hover:text-black"
+          >
             Switch verification method
           </Link>
         </div>
@@ -116,7 +138,17 @@ function VerifyCardSkeleton() {
   );
 }
 
-function EnvelopeIcon() {
+function MethodIcon({ method }: { method: VerifyMethod }) {
+  const iconMap: Record<VerifyMethod, ReactNode> = {
+    email: (
+      // Phosphor EnvelopeSimple (regular weight)
+      <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM40,75.54l82.59,75.59a8,8,0,0,0,10.82,0L216,75.54V192H40Z" />
+    ),
+    sms: (
+      // Phosphor DeviceMobile (regular weight)
+      <path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16Zm8,200a8,8,0,0,1-8,8H80a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h96a8,8,0,0,1,8,8ZM144,56H112a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16Z" />
+    ),
+  };
   return (
     <svg
       width="80"
@@ -126,7 +158,7 @@ function EnvelopeIcon() {
       aria-hidden
       className="text-black"
     >
-      <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM40,75.54l82.59,75.59a8,8,0,0,0,10.82,0L216,75.54V192H40Z" />
+      {iconMap[method]}
     </svg>
   );
 }
