@@ -7,11 +7,11 @@ import type { FormEvent } from "react";
 import { Suspense } from "react";
 import { Button } from "@/components/base/button";
 import { Input } from "@/components/common/input";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 type LoginMode = "password" | "passwordless";
 
-const RETURNING_AVATAR = "/figma/avatar-3d-03.png";
+const RETURNING_AVATAR = "/avatars/avatar-3d-03.png";
 
 export default function LoginPage() {
   return (

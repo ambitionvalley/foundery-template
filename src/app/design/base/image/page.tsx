@@ -3,10 +3,10 @@
 import NextImage from "next/image";
 import { useState, type ReactNode } from "react";
 import { Image, type ImageSize } from "@/components/base/image";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 
-const SAMPLE_SRC = "/figma/byewind-avatar.png";
+const SAMPLE_SRC = "/avatars/byewind.png";
 
 const SIZES: ImageSize[] = [12, 16, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80];
 type DocRow = {

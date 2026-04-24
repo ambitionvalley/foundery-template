@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@/components/base/link";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 
 type DocRow = {

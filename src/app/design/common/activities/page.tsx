@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Activities, type ActivitiesProps } from "@/components/common/activities";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 type DocRow = {
   title: string;
@@ -78,9 +78,9 @@ const VARIANTS: { x: number; label: string; props: ActivitiesProps }[] = [
     props: {
       title: "Team",
       items: [
-        { avatar: "/figma/avatar-female-03.png", label: "Merged PR #482.", time: "2m" },
-        { avatar: "/figma/avatar-3d-03.png", label: "Shipped onboarding v2.", time: "1h" },
-        { avatar: "/figma/avatar-male-02.png", label: "Resolved 3 tickets.", time: "Today" },
+        { avatar: "/avatars/avatar-female-03.png", label: "Merged PR #482.", time: "2m" },
+        { avatar: "/avatars/avatar-3d-03.png", label: "Shipped onboarding v2.", time: "1h" },
+        { avatar: "/avatars/avatar-male-02.png", label: "Resolved 3 tickets.", time: "Today" },
       ],
     },
   },

@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { brand } from "@/config/brand";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
+import "./globals.css";
+
+import { brand } from "@/config/brand";
+import { inter } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +11,7 @@ export const metadata: Metadata = {
     template: `%s · ${brand.name}`,
   },
   description: brand.description,
+  metadataBase: new URL(brand.url),
   openGraph: {
     title: brand.name,
     description: brand.description,

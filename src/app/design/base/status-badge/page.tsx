@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { StatusBadge, type StatusColor } from "@/components/base/status-badge";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 type DocRow = {
   title: string;

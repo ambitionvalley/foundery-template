@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Button, type ButtonSize, type ButtonVariant } from "@/components/base/button";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 
 const SIZES: ButtonSize[] = ["small", "medium", "large"];

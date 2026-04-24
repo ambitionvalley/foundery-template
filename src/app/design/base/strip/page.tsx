@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Strip, type StripProps } from "@/components/base/strip";
-import { BrandLogo } from "@/components/brand-logo";
-import { brand } from "@/config/brand";
+import { BrandLogo } from "@/components/brand/brand-logo";
 type DocRow = {
   title: string;
   body: ReactNode;
@@ -24,7 +23,7 @@ const docRows: DocRow[] = [
           Horizontal strips default to 160×2, vertical to 2×134; override via
           <code>className</code>. Pass <code>count</code>, <code>gap</code>, and
           an optional <code>pattern</code> for per-segment opacity (used by the
-          Overview's Traffic by Website block).
+          Overview&apos;s Traffic by Website block).
         </p>
       </>
     ),

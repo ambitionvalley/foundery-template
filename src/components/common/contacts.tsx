@@ -15,9 +15,9 @@ export type ContactsProps = {
 const TEXT_STYLE = { fontFeatureSettings: "'ss01' 1, 'cv01' 1" as const };
 
 const DEFAULT_ITEMS: ContactItem[] = [
-  { name: "Natali Craig", avatar: "/figma/avatars/natali-craig.png" },
-  { name: "Drew Cano", avatar: "/figma/avatars/drew-cano.png" },
-  { name: "Andi Lane", avatar: "/figma/avatars/andi-lane.png" },
+  { name: "Natali Craig", avatar: "/avatars/natali-craig.png" },
+  { name: "Drew Cano", avatar: "/avatars/drew-cano.png" },
+  { name: "Andi Lane", avatar: "/avatars/andi-lane.png" },
   { name: "Koray Okumus" },
   { name: "Kate Morrison" },
   { name: "Melody Macy" },

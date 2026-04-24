@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Fragment, type ReactNode } from "react";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 
 type DocRow = {
@@ -60,7 +60,7 @@ function AvatarSmall({ size = 12 }: { size?: number }) {
       }}
     >
       <Image
-        src="/figma/byewind-avatar.png"
+        src="/avatars/byewind.png"
         alt=""
         width={size}
         height={size}

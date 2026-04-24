@@ -21,11 +21,11 @@ export type ActivitiesProps = {
 const TEXT_STYLE = { fontFeatureSettings: "'ss01' 1, 'cv01' 1" as const };
 
 const DEFAULT_ITEMS: ActivityItem[] = [
-  { avatar: "/figma/avatar-abstract-03.png", label: "Changed the style.", time: "Just now" },
-  { avatar: "/figma/avatar-female-03.png", label: "Released a new version.", time: "59 minutes ago" },
-  { avatar: "/figma/avatar-male-02.png", label: "Submitted a bug.", time: "12 hours ago" },
-  { avatar: "/figma/avatar-3d-03.png", label: "Modified A data in Page X.", time: "Today, 11:59 AM" },
-  { avatar: "/figma/avatar-abstract-04.png", label: "Deleted a page in Project X.", time: "Feb 2, 2026" },
+  { avatar: "/avatars/avatar-abstract-03.png", label: "Changed the style.", time: "Just now" },
+  { avatar: "/avatars/avatar-female-03.png", label: "Released a new version.", time: "59 minutes ago" },
+  { avatar: "/avatars/avatar-male-02.png", label: "Submitted a bug.", time: "12 hours ago" },
+  { avatar: "/avatars/avatar-3d-03.png", label: "Modified A data in Page X.", time: "Today, 11:59 AM" },
+  { avatar: "/avatars/avatar-abstract-04.png", label: "Deleted a page in Project X.", time: "Feb 2, 2026" },
 ];
 
 function Avatar({ value }: { value: ActivityItem["avatar"] }) {

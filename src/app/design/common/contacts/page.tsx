@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Contacts, type ContactItem } from "@/components/common/contacts";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 type DocRow = {
   title: string;
@@ -67,8 +67,8 @@ function DocRowItem({ row }: { row: DocRow }) {
 }
 
 const SHORT_ITEMS: ContactItem[] = [
-  { name: "ByeWind", avatar: "/figma/avatars/byewind.png" },
-  { name: "Natali Craig", avatar: "/figma/avatars/natali-craig.png" },
+  { name: "ByeWind", avatar: "/avatars/byewind.png" },
+  { name: "Natali Craig", avatar: "/avatars/natali-craig.png" },
 ];
 
 const FALLBACK_ITEMS: ContactItem[] = [

@@ -1,9 +1,9 @@
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { brand } from "@/config/brand";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen grid place-items-center bg-white p-8">
+    <section className="grid min-h-[60vh] place-items-center p-8">
       <div className="flex max-w-md flex-col items-center gap-6 text-center">
         <BrandLogo priority />
         <h1 className="text-[48px] leading-[56px] font-semibold text-black">
@@ -16,6 +16,6 @@ export default function LandingPage() {
           Replace this with your product&apos;s landing page.
         </p>
       </div>
-    </main>
+    </section>
   );
 }

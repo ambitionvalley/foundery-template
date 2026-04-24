@@ -8,8 +8,8 @@ export const brand = {
 
   // Visuals
   logo: {
-    mark: "/foundry/logo.svg",
-    wordmark: "/foundry/wordmark.svg",
+    mark: "/brand/logo.svg",
+    wordmark: "/brand/wordmark.svg",
   },
   font: {
     // Must match a font loader configured in src/app/layout.tsx.
@@ -18,7 +18,7 @@ export const brand = {
 
   // Social / SEO
   twitter: "@foundry",
-  ogImage: "/foundry/og.svg",
+  ogImage: "/brand/og.svg",
 } as const;
 
 export type Brand = typeof brand;

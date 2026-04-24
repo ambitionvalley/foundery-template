@@ -1,9 +1,9 @@
-import { MarketingAndSeo } from "@/components/app/marketing-and-seo";
-import { StatCard } from "@/components/app/stat-card";
-import { TotalUsersChart } from "@/components/app/total-users-chart";
-import { TrafficByDevice } from "@/components/app/traffic-by-device";
-import { TrafficByLocation } from "@/components/app/traffic-by-location";
-import { TrafficByWebsite } from "@/components/app/traffic-by-website";
+import { MarketingAndSeo } from "@/features/dashboard/components/marketing-and-seo";
+import { StatCard } from "@/features/dashboard/components/stat-card";
+import { TotalUsersChart } from "@/features/dashboard/components/total-users-chart";
+import { TrafficByDevice } from "@/features/dashboard/components/traffic-by-device";
+import { TrafficByLocation } from "@/features/dashboard/components/traffic-by-location";
+import { TrafficByWebsite } from "@/features/dashboard/components/traffic-by-website";
 
 export default function AppPage() {
   return (

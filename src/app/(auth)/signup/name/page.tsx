@@ -6,7 +6,7 @@ import type { FormEvent } from "react";
 import { Suspense } from "react";
 import { Button } from "@/components/base/button";
 import { Input } from "@/components/common/input";
-import { BrandLogo } from "@/components/brand-logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export default function SignupNamePage() {
   return (
