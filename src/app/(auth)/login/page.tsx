@@ -33,12 +33,14 @@ function LoginCard() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     // TODO: replace with real auth (Supabase, Auth0, etc.). For the template
-    // we skip credential checking and route straight to email verification so
-    // fork-owners can click through the flow end-to-end.
+    // we skip credential checking and route to the verification screen that
+    // matches the identifier — email vs phone — so fork-owners can click
+    // through either flow end-to-end.
     const data = new FormData(event.currentTarget);
     const identifier = (data.get("identifier") ?? "").toString().trim();
-    const query = new URLSearchParams({ method: "email" });
-    if (identifier.includes("@")) query.set("contact", identifier);
+    const verifyMethod = identifier.includes("@") ? "email" : "sms";
+    const query = new URLSearchParams({ method: verifyMethod });
+    if (identifier) query.set("contact", identifier);
     router.push(`/verify?${query.toString()}`);
   }
 
