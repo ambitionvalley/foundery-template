@@ -24,6 +24,11 @@ function LoginCard() {
   const params = useSearchParams();
   const mode: LoginMode =
     params.get("mode") === "passwordless" ? "passwordless" : "password";
+  const switchHref = mode === "password" ? "/login?mode=passwordless" : "/login";
+  const switchLabel =
+    mode === "password"
+      ? "Sign in with email code instead"
+      : "Use password instead";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -122,6 +127,13 @@ function LoginCard() {
           >
             Sign In
           </Button>
+          <Link
+            href={switchHref}
+            className="text-[14px] leading-[20px] text-[#adadfb] hover:text-black"
+            style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
+          >
+            {switchLabel}
+          </Link>
         </form>
 
         <div
