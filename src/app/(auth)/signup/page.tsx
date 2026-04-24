@@ -70,21 +70,21 @@ export default function SignupPage() {
             bg="#8156fa"
             iconSrc="/social/google.svg"
             provider="Google"
-            onSignIn={() => router.push("/app")}
+            onSignIn={() => router.push("/signup/name?provider=google")}
           />
           <SocialButton
             label="Continue with Apple"
             bg="#000000"
             iconSrc="/social/apple.svg"
             provider="Apple"
-            onSignIn={() => router.push("/app")}
+            onSignIn={() => router.push("/signup/name?provider=apple")}
           />
           <SocialButton
             label="Continue with Microsoft"
             bg="#2f2f2f"
             iconSrc="/social/microsoft.svg"
             provider="Microsoft"
-            onSignIn={() => router.push("/app")}
+            onSignIn={() => router.push("/signup/name?provider=microsoft")}
           />
         </div>
 
