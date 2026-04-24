@@ -1,20 +1,20 @@
-// Traffic by Location — donut chart + legend. Arcs derived from the
-// per-slice percentage; colors pulled from the Foundry secondary palette
-// to match Traffic by Device. Template data; replace with real geo
-// telemetry.
+// Traffic by Location — 432x280 block. 120x120 donut with 4 colored
+// slices + a right-side legend listing each country with a dot-tagged
+// label and its percentage. Colours match the Figma fills; template
+// data, swap for real geo telemetry.
 const SLICES: { label: string; pct: number; color: string }[] = [
   { label: "United States", pct: 52.1, color: "#000000" },
-  { label: "Canada", pct: 22.8, color: "#71dd8c" },
-  { label: "Mexico", pct: 13.9, color: "#b899eb" },
-  { label: "Other", pct: 11.2, color: "#a0bce8" },
+  { label: "Canada", pct: 22.8, color: "#7DBBFF" },
+  { label: "Mexico", pct: 13.9, color: "#71DD8C" },
+  { label: "Other", pct: 11.2, color: "#A0BCE8" },
 ];
 
 export function TrafficByLocation() {
-  const size = 160;
+  const size = 120;
   const cx = size / 2;
   const cy = size / 2;
-  const r = 66;
-  const rInner = 46;
+  const rOuter = 56;
+  const rInner = 32;
 
   let cursor = -90; // start at 12 o'clock
   const arcs = SLICES.map((slice) => {
@@ -27,13 +27,13 @@ export function TrafficByLocation() {
 
   return (
     <div
-      className="flex flex-col gap-4 rounded-[16px] bg-[#f7f7f8] p-6"
+      className="flex flex-col gap-4 rounded-[20px] bg-[#f9f9fa] p-6"
       style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
     >
       <h2 className="text-[14px] leading-[20px] font-semibold text-black">
         Traffic by Location
       </h2>
-      <div className="flex items-center gap-6">
+      <div className="flex items-center justify-between gap-10 px-5">
         <svg
           role="img"
           aria-label="Traffic share by country"
@@ -45,26 +45,26 @@ export function TrafficByLocation() {
           {arcs.map((arc, i) => (
             <path
               key={i}
-              d={donutSlice(cx, cy, r, rInner, arc.start, arc.end)}
+              d={donutSlice(cx, cy, rOuter, rInner, arc.start, arc.end)}
               fill={arc.color}
             />
           ))}
         </svg>
-        <ul className="flex flex-1 flex-col gap-2 text-[12px] leading-[18px]">
+        <ul className="flex flex-1 flex-col gap-3 text-[12px] leading-[16px] text-black">
           {SLICES.map((slice) => (
             <li
               key={slice.label}
-              className="flex items-center justify-between gap-2"
+              className="flex items-center justify-between gap-12"
             >
-              <span className="flex items-center gap-2 text-black/60">
+              <span className="flex items-center gap-2 rounded-[8px] py-0.5 pr-2 pl-1">
                 <span
                   aria-hidden
-                  className="h-1.5 w-1.5 rounded-full"
+                  className="size-[6px] rounded-full"
                   style={{ backgroundColor: slice.color }}
                 />
                 {slice.label}
               </span>
-              <span className="text-black">{slice.pct}%</span>
+              <span>{slice.pct}%</span>
             </li>
           ))}
         </ul>
@@ -87,8 +87,9 @@ function donutSlice(
   endDeg: number,
 ) {
   const sweep = endDeg - startDeg;
-  // Leave a tiny visual gap between slices.
-  const gap = 1;
+  // Small visual gap between slices so the Figma's "Subtract" corner
+  // radius shows through as separated segments.
+  const gap = 2;
   const a = startDeg + gap / 2;
   const b = endDeg - gap / 2;
   const largeArc = sweep - gap > 180 ? 1 : 0;
