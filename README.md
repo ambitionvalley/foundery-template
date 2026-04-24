@@ -7,7 +7,7 @@ No integrations pre-wired; opinionated shells and a full design system ready to 
 
 - **Design system** — 19 base primitives + 23 common components, tokens in `globals.css`.
   Browse locally at `/design` (returns 404 in production).
-- **App shells** — `(marketing)`, `(auth)`, `(app)` route groups with placeholder pages.
+- **App shells** — `(marketing)`, `(auth)`, `(protected)` route groups. Workspace-scoped pages live under `(protected)/[workspace]/*`.
 - **Branding** — one file (`src/config/brand.ts`) controls name, description, logo, font.
 - **Env scaffold** — `.env.example` with commented blocks for Supabase, Stripe, Resend.
 
@@ -20,7 +20,7 @@ pnpm dev
 
 Visit http://localhost:3000 — marketing placeholder.
 Visit http://localhost:3000/design — design system (dev-only).
-Visit http://localhost:3000/login, `/signup`, `/app` — unwired shells.
+Visit http://localhost:3000/login, `/signup`, `/acme/dashboard` — unwired shells (`acme` is any workspace slug).
 
 ## Fork-and-rebrand checklist
 
@@ -28,8 +28,8 @@ After clicking "Use this template" on GitHub and cloning the new repo:
 
 - [ ] Rename `package.json` → set `"name"` to your product slug.
 - [ ] Update `src/config/brand.ts` — `name`, `shortName`, `description`, `url`, `twitter`, `ogImage`.
-- [ ] Replace logos in `public/foundry/` — `logo.svg`, `wordmark.svg`, `og.svg` (swap to a real `og.png` and update `brand.ogImage`).
-- [ ] Rename `public/foundry/` to match your slug if you prefer, then update `brand.logo.*` paths.
+- [ ] Replace logos in `public/brand/` — `logo.svg`, `wordmark.svg`, `og.svg` (swap to a real `og.png` and update `brand.ogImage`).
+- [ ] Rename `public/brand/` to match your slug if you prefer, then update `brand.logo.mark` / `brand.logo.wordmark` paths (and the proxy matcher exclusion in `src/proxy.ts`).
 - [ ] Tune tokens in `src/app/globals.css` — primary color, anything semantic.
 - [ ] Rewrite `src/app/(marketing)/page.tsx` with your real landing page.
 - [ ] Decide whether to keep the `/design` docs in your fork. Delete `src/app/design/` if not.
