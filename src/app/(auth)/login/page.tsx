@@ -2,14 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
+import { Suspense } from "react";
 import { Button } from "@/components/base/button";
 import { Input } from "@/components/common/input";
 import { BrandLogo } from "@/components/brand-logo";
 
+type LoginMode = "password" | "passwordless";
+
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginCardSkeleton />}>
+      <LoginCard />
+    </Suspense>
+  );
+}
+
+function LoginCard() {
   const router = useRouter();
+  const params = useSearchParams();
+  const mode: LoginMode =
+    params.get("mode") === "passwordless" ? "passwordless" : "password";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -89,14 +103,16 @@ export default function LoginPage() {
             placeholder="Email or Phone number"
             aria-label="Email or Phone number"
           />
-          <Input
-            size="lg"
-            type="password"
-            name="password"
-            autoComplete="current-password"
-            placeholder="Password"
-            aria-label="Password"
-          />
+          {mode === "password" && (
+            <Input
+              size="lg"
+              type="password"
+              name="password"
+              autoComplete="current-password"
+              placeholder="Password"
+              aria-label="Password"
+            />
+          )}
           <Button
             type="submit"
             size="large"
@@ -123,6 +139,17 @@ export default function LoginPage() {
           </Link>
         </div>
       </div>
+    </section>
+  );
+}
+
+function LoginCardSkeleton() {
+  return (
+    <section
+      className="relative flex w-full max-w-[680px] flex-col items-center justify-center gap-6 rounded-[32px] bg-white p-6"
+      aria-hidden
+    >
+      <div className="h-[560px] w-full max-w-[313px]" />
     </section>
   );
 }
