@@ -1,7 +1,8 @@
-// Traffic by Website — 202x330 block. Each row renders N small 2px pills
-// with a repeating opacity pattern (1, 0.4, 0.1, then solid). Pill count
-// per row matches the Figma source; fork-owners replace the label +
-// count list with real per-site telemetry.
+import { Strip } from "@/components/base/strip";
+
+// Traffic by Website — 202x330 Overview block. Each row is a <Strip>
+// from the base design system with the opacity pattern Figma uses
+// across the widget. Fork-owners replace the list with real telemetry.
 const ROWS: { label: string; count: number }[] = [
   { label: "Google", count: 7 },
   { label: "YouTube", count: 4 },
@@ -11,7 +12,7 @@ const ROWS: { label: string; count: number }[] = [
   { label: "Twitter", count: 5 },
 ];
 
-const OPACITY_PATTERN = [1, 0.4, 0.1];
+const PATTERN = [1, 0.4, 0.1] as const;
 
 export function TrafficByWebsite() {
   return (
@@ -32,18 +33,12 @@ export function TrafficByWebsite() {
             <span className="flex-1 truncate text-[12px] leading-[16px] text-black">
               {row.label}
             </span>
-            <div
-              aria-hidden
-              className="flex h-[34px] w-20 shrink-0 items-center gap-0.5"
-            >
-              {Array.from({ length: row.count }).map((_, i) => (
-                <span
-                  key={i}
-                  className="h-0.5 flex-1 rounded-full bg-black"
-                  style={{ opacity: OPACITY_PATTERN[i] ?? 1 }}
-                />
-              ))}
-            </div>
+            <Strip
+              count={row.count}
+              gap={2}
+              pattern={PATTERN}
+              className="!w-20"
+            />
           </li>
         ))}
       </ul>

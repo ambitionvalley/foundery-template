@@ -21,8 +21,10 @@ const docRows: DocRow[] = [
           equally, separated by an 8px gap.
         </p>
         <p>
-          Horizontal strips are 160×2, vertical strips 2×134. Segment count
-          ranges from 1 to 7.
+          Horizontal strips default to 160×2, vertical to 2×134; override via
+          <code>className</code>. Pass <code>count</code>, <code>gap</code>, and
+          an optional <code>pattern</code> for per-segment opacity (used by the
+          Overview's Traffic by Website block).
         </p>
       </>
     ),
@@ -123,9 +125,11 @@ function FigmaCanvasRow() {
 
 function PropsTableRow() {
   const props = [
-    { name: "count", type: "1 | 2 | 3 | 4 | 5 | 6 | 7", default: "1", description: "Number of segments." },
+    { name: "count", type: "number", default: "1", description: "Number of segments." },
     { name: "vertical", type: "boolean", default: "false", description: "Render as 2×134 column." },
-    { name: "className", type: "string", default: "—", description: "Merged with base classes." },
+    { name: "gap", type: "number", default: "8 (when count > 1)", description: "Gap between segments in px." },
+    { name: "pattern", type: "readonly number[]", default: "—", description: "Per-segment opacity; segments past the pattern length are fully opaque." },
+    { name: "className", type: "string", default: "—", description: "Merged with base classes; use Tailwind's `!` modifier to override width/height." },
   ];
 
   return (
