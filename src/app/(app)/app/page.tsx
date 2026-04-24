@@ -1,5 +1,7 @@
 import { StatCard } from "@/components/app/stat-card";
 import { TotalUsersChart } from "@/components/app/total-users-chart";
+import { TrafficByDevice } from "@/components/app/traffic-by-device";
+import { TrafficByLocation } from "@/components/app/traffic-by-location";
 import { TrafficByWebsite } from "@/components/app/traffic-by-website";
 
 export default function AppPage() {
@@ -47,9 +49,13 @@ export default function AppPage() {
         <TrafficByWebsite />
       </div>
 
+      <div className="grid grid-cols-2 gap-7">
+        <TrafficByDevice />
+        <TrafficByLocation />
+      </div>
+
       <div className="rounded-[16px] border border-dashed border-black/15 p-10 text-center text-[13px] leading-[20px] text-black/40">
-        Traffic by Device/Location · Marketing &amp; SEO — fleshed out in Parts
-        7–8.
+        Marketing &amp; SEO — fleshed out in Part 8.
       </div>
     </div>
   );
