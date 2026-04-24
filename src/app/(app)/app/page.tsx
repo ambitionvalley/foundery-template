@@ -45,7 +45,7 @@ export default function AppPage() {
         />
       </div>
 
-      <div className="grid grid-cols-[2fr_1fr] gap-7">
+      <div className="grid grid-cols-[662fr_202fr] gap-7">
         <TotalUsersChart />
         <TrafficByWebsite />
       </div>
