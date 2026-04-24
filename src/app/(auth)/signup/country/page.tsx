@@ -55,21 +55,28 @@ function CountryCard() {
   const router = useRouter();
   const params = useSearchParams();
   const phone = params.get("phone") ?? "";
-  const initialCode = params.get("country") ?? "HK";
+  const initialCode = params.get("country") ?? "NL";
 
   const [query, setQuery] = useState("");
   const [selectedCode, setSelectedCode] = useState<string>(initialCode);
 
+  // When no search is active, float the selected country to the top so it's
+  // always visible without scrolling (mirrors the Figma behaviour). When the
+  // user is searching, show the normal filtered order.
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return COUNTRIES;
-    return COUNTRIES.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.dial.toLowerCase().includes(q) ||
-        c.code.toLowerCase().includes(q),
-    );
-  }, [query]);
+    if (q) {
+      return COUNTRIES.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          c.dial.toLowerCase().includes(q) ||
+          c.code.toLowerCase().includes(q),
+      );
+    }
+    const selected = COUNTRIES.find((c) => c.code === selectedCode);
+    if (!selected) return COUNTRIES;
+    return [selected, ...COUNTRIES.filter((c) => c.code !== selectedCode)];
+  }, [query, selectedCode]);
 
   const selected =
     COUNTRIES.find((c) => c.code === selectedCode) ?? COUNTRIES[0]!;
