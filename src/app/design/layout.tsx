@@ -5,7 +5,11 @@ export default function DesignLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (process.env.NODE_ENV === "production") {
+  const enabled =
+    process.env.NODE_ENV === "development" ||
+    process.env.DESIGN_PREVIEW_ENABLED === "true";
+
+  if (!enabled) {
     notFound();
   }
   return <>{children}</>;
