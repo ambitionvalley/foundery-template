@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent, ReactNode } from "react";
 import { Suspense } from "react";
 import { Input } from "@/components/common/input";
@@ -33,15 +33,22 @@ export default function VerifyPage() {
 }
 
 function VerifyCard() {
+  const router = useRouter();
   const params = useSearchParams();
   const method: VerifyMethod = params.get("method") === "sms" ? "sms" : "email";
   const contact = params.get("contact") ?? FALLBACK_CONTACT[method];
   const otherMethod: VerifyMethod = method === "email" ? "sms" : "email";
+  // `next` is the post-verify destination. Only allow in-app paths so
+  // fork-owners can't accidentally build open redirects on top.
+  const nextRaw = params.get("next");
+  const next = nextRaw && nextRaw.startsWith("/") ? nextRaw : "/app";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // TODO: wire verification (OTP check, magic-link handler, etc.)
+    // TODO: wire verification (OTP check, magic-link handler, etc.). Template
+    // accepts any input and routes to `next` so the flow is clickable.
     console.warn(`TODO: wire verify submit (method=${method})`);
+    router.push(next);
   }
 
   return (
