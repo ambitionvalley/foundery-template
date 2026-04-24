@@ -1,9 +1,5 @@
-import {
-  Broadcast,
-  BugBeetle,
-  User,
-  type Icon as PhosphorIcon,
-} from "@phosphor-icons/react";
+import { Broadcast, BugBeetle, User } from "@phosphor-icons/react/dist/ssr";
+import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import type { ReactNode } from "react";
 
 export type NotificationItem = {

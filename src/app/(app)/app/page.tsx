@@ -34,14 +34,14 @@ export default function AppPage() {
       </div>
 
       <div className="flex gap-7">
-        <StatCard label="Views" value="7,265" delta="+11.01%" tone="lilac" />
-        <StatCard label="Visits" value="3,671" delta="-0.03%" />
-        <StatCard label="New Users" value="256" delta="+15.03%" />
+        <StatCard label="Views" value="7,265" delta="+11.01%" tone="blue" />
+        <StatCard label="Visits" value="3,671" delta="-0.03%" tone="lilac" />
+        <StatCard label="New Users" value="256" delta="+15.03%" tone="blue" />
         <StatCard
           label="Active Users"
           value="2,318"
           delta="+6.08%"
-          tone="blue"
+          tone="lilac"
         />
       </div>
 
