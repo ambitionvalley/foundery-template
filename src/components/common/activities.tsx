@@ -10,13 +10,10 @@ export type ActivityItem = {
 };
 
 export type ActivitiesProps = {
-  /** Heading text; defaults to "Activities". */
   title?: ReactNode;
-  /** Activity rows. When omitted, renders <code>count</code> Figma-parity rows. */
   items?: ActivityItem[];
-  /** Fallback row count when <code>items</code> is omitted. 1–5. */
+  /** Fallback row count when <code>items</code> is omitted. 1-5. */
   count?: 1 | 2 | 3 | 4 | 5;
-  /** `card` (default popover) or `flat` (embedded in a panel). */
   variant?: "card" | "flat";
   className?: string;
 };
@@ -33,7 +30,7 @@ const DEFAULT_ITEMS: ActivityItem[] = [
 
 function Avatar({ value }: { value: ActivityItem["avatar"] }) {
   const shell =
-    "relative size-[24px] shrink-0 overflow-hidden rounded-full bg-black/[0.04]";
+    "relative z-[1] size-6 shrink-0 overflow-hidden rounded-full bg-black/[0.04]";
 
   if (typeof value === "string") {
     return (
@@ -42,7 +39,7 @@ function Avatar({ value }: { value: ActivityItem["avatar"] }) {
         <img
           src={value}
           alt=""
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 size-full object-cover"
         />
       </span>
     );
@@ -50,21 +47,17 @@ function Avatar({ value }: { value: ActivityItem["avatar"] }) {
   return <span className={shell}>{value}</span>;
 }
 
-/**
- * Activities — feed card that stacks a heading above a short column of
- * avatar + label + timestamp rows. 248px wide with a translucent white
- * surface, 24px radius and a soft drop-shadow so it composes cleanly over
- * any background.
- *
- * @example
- *   <Activities />
- *   <Activities title="Team" items={[{ avatar: url, label: "Shipped", time: "2m" }]} />
- */
 const SHELL = {
-  card: "w-[248px] rounded-[24px] bg-white/90 p-[20px] shadow-[0_8px_28px_0_rgba(0,0,0,0.1)] backdrop-blur-[20px]",
+  card: "w-[248px] rounded-[24px] bg-white/90 p-5 shadow-[0_8px_28px_0_rgba(0,0,0,0.1)] backdrop-blur-[20px]",
   flat: "w-full",
 } as const;
 
+/**
+ * Activities — heading above a stack of avatar + label + timestamp rows.
+ * A dashed vertical strip visually connects the avatars through the
+ * column, matching the Figma's timeline treatment. `card` variant is a
+ * glassy popover; `flat` variant embeds inside the dashboard right rail.
+ */
 export function Activities({
   title = "Activities",
   items,
@@ -76,43 +69,52 @@ export function Activities({
 
   return (
     <div
-      className={`flex flex-col items-start gap-[4px] ${SHELL[variant]} ${className ?? ""}`}
+      className={`flex flex-col gap-1 ${SHELL[variant]} ${className ?? ""}`}
     >
-      <div className="flex w-full shrink-0 flex-col items-start justify-center rounded-[12px] px-[4px] py-[8px]">
-        <p
-          className="w-full text-[18px] leading-[28px] font-semibold text-black"
+      <div className="flex h-9 items-center rounded-[12px] px-1 py-2">
+        <span
+          className="text-[14px] leading-[20px] text-black"
           style={TEXT_STYLE}
         >
           {title}
-        </p>
+        </span>
       </div>
 
-      {rows.map((row, i) => (
-        <div
-          key={i}
-          className="flex w-full shrink-0 flex-wrap items-start gap-[8px] rounded-[12px] p-[8px]"
-        >
-          <span className="flex items-center justify-center">
-            <Avatar value={row.avatar} />
-          </span>
-          <span className="flex min-w-px flex-[1_0_0] flex-col items-start justify-center rounded-[12px]">
-            <span
-              className="w-full truncate text-[14px] leading-[20px] font-normal text-black"
-              style={TEXT_STYLE}
+      <div className="relative">
+        {/* Timeline strip — 1px dashed line threaded through the avatar
+            column. Positioned 20px from the left edge to hit each 24px
+            avatar centered under the 8px row padding. */}
+        <span
+          aria-hidden
+          className="absolute top-6 bottom-6 left-[20px] w-px border-l border-dashed border-black/10"
+        />
+        <ul className="flex flex-col gap-1">
+          {rows.map((row, i) => (
+            <li
+              key={i}
+              className="relative flex h-[52px] items-center gap-2 rounded-[12px] p-2"
             >
-              {row.label}
-            </span>
-            {row.time != null && (
-              <span
-                className="w-full text-[12px] leading-[16px] font-normal text-black/40"
-                style={TEXT_STYLE}
-              >
-                {row.time}
-              </span>
-            )}
-          </span>
-        </div>
-      ))}
+              <Avatar value={row.avatar} />
+              <div className="flex min-w-0 flex-1 flex-col justify-center">
+                <span
+                  className="truncate text-[14px] leading-[20px] text-black"
+                  style={TEXT_STYLE}
+                >
+                  {row.label}
+                </span>
+                {row.time != null && (
+                  <span
+                    className="truncate text-[12px] leading-[16px] text-black/40"
+                    style={TEXT_STYLE}
+                  >
+                    {row.time}
+                  </span>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

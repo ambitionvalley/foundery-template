@@ -14,7 +14,7 @@ export function AppRightPanel({ open }: { open: boolean }) {
     >
       <aside
         aria-label="Activity panel"
-        className="flex h-full w-[280px] flex-col gap-6 overflow-y-auto border-l border-black/10 bg-white p-5"
+        className="flex h-full w-[280px] flex-col gap-4 overflow-y-auto border-l border-black/10 bg-white p-4"
       >
         <Notifications variant="flat" />
         <Activities variant="flat" />
