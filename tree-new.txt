@@ -1,0 +1,311 @@
+.
+├── AGENTS.md
+├── claude-old.txt
+├── CLAUDE.md
+├── docs
+│   └── superpowers
+│       ├── plans
+│       │   └── 2026-04-24-full-restructure.md
+│       └── specs
+│           └── 2026-04-23-foundry-saas-boilerplate-design.md
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── postcss.config.mjs
+├── public
+│   ├── avatars
+│   │   ├── andi-lane.png
+│   │   ├── avatar-3d-03.png
+│   │   ├── avatar-abstract-03.png
+│   │   ├── avatar-abstract-04.png
+│   │   ├── avatar-female-03.png
+│   │   ├── avatar-male-02.png
+│   │   ├── byewind.png
+│   │   ├── drew-cano.png
+│   │   ├── natali-craig.png
+│   │   └── orlando-diggs.png
+│   ├── brand
+│   │   ├── logo.svg
+│   │   ├── og.svg
+│   │   └── wordmark.svg
+│   ├── icons
+│   │   ├── file.svg
+│   │   ├── globe.svg
+│   │   └── window.svg
+│   └── social
+│       ├── apple.svg
+│       ├── google.svg
+│       └── microsoft.svg
+├── README.md
+├── src
+│   ├── app
+│   │   ├── (auth)
+│   │   │   ├── forgot-password
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── login
+│   │   │   │   └── page.tsx
+│   │   │   ├── reset-password
+│   │   │   │   └── page.tsx
+│   │   │   ├── signup
+│   │   │   │   ├── country
+│   │   │   │   ├── name
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── password
+│   │   │   └── verify
+│   │   │       └── page.tsx
+│   │   ├── (marketing)
+│   │   │   ├── about
+│   │   │   │   └── page.tsx
+│   │   │   ├── contact
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   └── pricing
+│   │   │       └── page.tsx
+│   │   ├── (protected)
+│   │   │   ├── [workspace]
+│   │   │   │   ├── analytics
+│   │   │   │   ├── billing
+│   │   │   │   ├── customers
+│   │   │   │   ├── dashboard
+│   │   │   │   ├── error.tsx
+│   │   │   │   ├── layout.tsx
+│   │   │   │   ├── loading.tsx
+│   │   │   │   ├── notifications
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── settings
+│   │   │   └── onboarding
+│   │   │       └── page.tsx
+│   │   ├── api
+│   │   │   ├── health
+│   │   │   │   └── route.ts
+│   │   │   └── webhooks
+│   │   │       └── stripe
+│   │   ├── design
+│   │   │   ├── base
+│   │   │   │   ├── badge
+│   │   │   │   ├── button
+│   │   │   │   ├── frame
+│   │   │   │   ├── frame-group-text
+│   │   │   │   ├── frame-icon
+│   │   │   │   ├── frame-icon-text-icon
+│   │   │   │   ├── frame-icon-text-text
+│   │   │   │   ├── frame-text
+│   │   │   │   ├── frame-text-icon-icon
+│   │   │   │   ├── frame-text-icon-text
+│   │   │   │   ├── group
+│   │   │   │   ├── icon
+│   │   │   │   ├── icon-text
+│   │   │   │   ├── image
+│   │   │   │   ├── line
+│   │   │   │   ├── link
+│   │   │   │   ├── status-badge
+│   │   │   │   ├── strip
+│   │   │   │   ├── tag
+│   │   │   │   └── text
+│   │   │   ├── colors
+│   │   │   │   └── page.tsx
+│   │   │   ├── common
+│   │   │   │   ├── activities
+│   │   │   │   ├── card
+│   │   │   │   ├── contacts
+│   │   │   │   ├── date-picker
+│   │   │   │   ├── input
+│   │   │   │   ├── input-address
+│   │   │   │   ├── input-card
+│   │   │   │   ├── input-three
+│   │   │   │   ├── input-two
+│   │   │   │   ├── list-box
+│   │   │   │   ├── mask
+│   │   │   │   ├── notification
+│   │   │   │   ├── notifications
+│   │   │   │   ├── notifications-anchor
+│   │   │   │   ├── quick-action
+│   │   │   │   ├── scroll-bar
+│   │   │   │   ├── search
+│   │   │   │   ├── search-popup
+│   │   │   │   ├── slider
+│   │   │   │   ├── slider-bar
+│   │   │   │   ├── tap
+│   │   │   │   ├── tooltip
+│   │   │   │   └── tooltip-anchor
+│   │   │   ├── components
+│   │   │   │   └── page.tsx
+│   │   │   ├── design-resources
+│   │   │   │   └── page.tsx
+│   │   │   ├── effect-styles
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── spacing-size-radius
+│   │   │   │   └── page.tsx
+│   │   │   ├── text-styles
+│   │   │   │   └── page.tsx
+│   │   │   └── variables
+│   │   │       └── page.tsx
+│   │   ├── error.tsx
+│   │   ├── favicon.ico
+│   │   ├── global-error.tsx
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── loading.tsx
+│   │   └── not-found.tsx
+│   ├── components
+│   │   ├── base
+│   │   │   ├── badge.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── frame-group-text.tsx
+│   │   │   ├── frame-icon-text-icon.tsx
+│   │   │   ├── frame-icon-text-text.tsx
+│   │   │   ├── frame-icon.tsx
+│   │   │   ├── frame-text-icon-icon.tsx
+│   │   │   ├── frame-text-icon-text.tsx
+│   │   │   ├── frame-text.tsx
+│   │   │   ├── frame.tsx
+│   │   │   ├── group.tsx
+│   │   │   ├── icon-text.tsx
+│   │   │   ├── icon.tsx
+│   │   │   ├── image.tsx
+│   │   │   ├── line.tsx
+│   │   │   ├── link.tsx
+│   │   │   ├── status-badge.tsx
+│   │   │   ├── strip.tsx
+│   │   │   ├── tag.tsx
+│   │   │   └── text.tsx
+│   │   ├── brand
+│   │   │   └── brand-logo.tsx
+│   │   ├── common
+│   │   │   ├── activities.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── contacts.tsx
+│   │   │   ├── date-picker.tsx
+│   │   │   ├── input-address.tsx
+│   │   │   ├── input-card.tsx
+│   │   │   ├── input-three.tsx
+│   │   │   ├── input-two.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── list-box.tsx
+│   │   │   ├── mask.tsx
+│   │   │   ├── notification.tsx
+│   │   │   ├── notifications-anchor.tsx
+│   │   │   ├── notifications.tsx
+│   │   │   ├── quick-action.tsx
+│   │   │   ├── scroll-bar.tsx
+│   │   │   ├── search-popup.tsx
+│   │   │   ├── search.tsx
+│   │   │   ├── slider-bar.tsx
+│   │   │   ├── slider.tsx
+│   │   │   ├── tap.tsx
+│   │   │   ├── tooltip-anchor.tsx
+│   │   │   └── tooltip.tsx
+│   │   └── layout
+│   │       ├── app-right-panel.tsx
+│   │       ├── app-shell.tsx
+│   │       ├── app-sidebar.tsx
+│   │       ├── app-topbar.tsx
+│   │       ├── auth-shell.tsx
+│   │       ├── marketing-footer.tsx
+│   │       └── marketing-header.tsx
+│   ├── config
+│   │   ├── brand.ts
+│   │   ├── features.ts
+│   │   ├── navigation.ts
+│   │   └── site.ts
+│   ├── env.ts
+│   ├── features
+│   │   ├── auth
+│   │   │   ├── actions.ts
+│   │   │   ├── components
+│   │   │   │   ├── forgot-password-form.tsx
+│   │   │   │   ├── login-form.tsx
+│   │   │   │   ├── signup-form.tsx
+│   │   │   │   ├── social-buttons.tsx
+│   │   │   │   └── verify-form.tsx
+│   │   │   ├── schemas.ts
+│   │   │   └── types.ts
+│   │   ├── billing
+│   │   │   ├── actions.ts
+│   │   │   ├── components
+│   │   │   │   ├── invoice-list.tsx
+│   │   │   │   ├── payment-method.tsx
+│   │   │   │   ├── pricing-table.tsx
+│   │   │   │   └── subscription-card.tsx
+│   │   │   ├── queries.ts
+│   │   │   └── types.ts
+│   │   ├── dashboard
+│   │   │   ├── actions.ts
+│   │   │   ├── components
+│   │   │   │   ├── marketing-and-seo.tsx
+│   │   │   │   ├── stat-card.tsx
+│   │   │   │   ├── total-users-chart.tsx
+│   │   │   │   ├── traffic-by-device.tsx
+│   │   │   │   ├── traffic-by-location.tsx
+│   │   │   │   └── traffic-by-website.tsx
+│   │   │   ├── queries.ts
+│   │   │   └── types.ts
+│   │   ├── marketing
+│   │   │   ├── components
+│   │   │   │   ├── cta-section.tsx
+│   │   │   │   ├── faq.tsx
+│   │   │   │   ├── features-grid.tsx
+│   │   │   │   ├── hero.tsx
+│   │   │   │   └── testimonials.tsx
+│   │   │   └── content.ts
+│   │   ├── settings
+│   │   │   ├── actions.ts
+│   │   │   ├── components
+│   │   │   │   ├── api-key-list.tsx
+│   │   │   │   ├── profile-form.tsx
+│   │   │   │   └── team-members.tsx
+│   │   │   ├── queries.ts
+│   │   │   └── types.ts
+│   │   └── workspaces
+│   │       ├── actions.ts
+│   │       ├── queries.ts
+│   │       └── types.ts
+│   ├── hooks
+│   │   ├── use-current-user.ts
+│   │   ├── use-debounce.ts
+│   │   ├── use-local-storage.ts
+│   │   └── use-media-query.ts
+│   ├── lib
+│   │   ├── cn.ts
+│   │   ├── constants.ts
+│   │   ├── format
+│   │   │   ├── currency.ts
+│   │   │   ├── date.ts
+│   │   │   └── number.ts
+│   │   ├── utils.ts
+│   │   └── validation
+│   │       ├── reserved-slugs.ts
+│   │       └── schemas.ts
+│   ├── proxy.ts
+│   ├── server
+│   │   ├── auth
+│   │   │   ├── providers.ts
+│   │   │   ├── proxy-helpers.ts
+│   │   │   └── session.ts
+│   │   ├── db
+│   │   │   ├── client.ts
+│   │   │   ├── queries
+│   │   │   └── schema.ts
+│   │   ├── email
+│   │   │   ├── client.ts
+│   │   │   └── templates
+│   │   └── stripe
+│   │       └── client.ts
+│   ├── styles
+│   │   └── fonts.ts
+│   └── types
+│       ├── api.ts
+│       ├── common.ts
+│       └── database.ts
+├── tree-new.txt
+├── tsconfig.json
+└── tsconfig.tsbuildinfo
+
+122 directories, 187 files

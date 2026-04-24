@@ -1,17 +1,24 @@
 import Link from "next/link";
 
-import { settingsNav } from "@/config/navigation";
+import { buildSettingsNav } from "@/config/navigation";
 
 export const metadata = { title: "Settings" };
 
-export default function SettingsPage() {
+export default async function SettingsPage({
+  params,
+}: {
+  params: Promise<{ workspace: string }>;
+}) {
+  const { workspace } = await params;
+  const nav = buildSettingsNav(workspace);
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-[16px] leading-[24px] font-semibold text-black">
         Settings
       </h1>
       <nav className="flex flex-col gap-2">
-        {settingsNav.map((item) => (
+        {nav.map((item) => (
           <Link
             key={item.href}
             href={item.href}
