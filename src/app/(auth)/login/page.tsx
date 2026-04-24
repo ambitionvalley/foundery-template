@@ -27,7 +27,7 @@ function LoginCard() {
   const switchHref = mode === "password" ? "/login?mode=passwordless" : "/login";
   const switchLabel =
     mode === "password"
-      ? "Sign in with email code instead"
+      ? "Sign in with email or SMS code instead"
       : "Use password instead";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
