@@ -13,6 +13,7 @@ import {
   UsersThree,
   type Icon,
 } from "@phosphor-icons/react";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -27,6 +28,8 @@ type NavKey =
   | "corporate"
   | "blog"
   | "social";
+
+const TEXT_STYLE = { fontFeatureSettings: "'ss01' 1, 'cv01' 1" as const };
 
 export function AppSidebar({ open }: { open: boolean }) {
   const [activeTab, setActiveTab] = useState<"favorites" | "recently">(
@@ -54,18 +57,14 @@ export function AppSidebar({ open }: { open: boolean }) {
     >
       <aside
         aria-label="Primary navigation"
-        className="flex h-full w-[212px] flex-col gap-4 overflow-y-auto border-r border-black/10 bg-white p-4"
-        style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
+        className="flex h-full w-[212px] flex-col gap-2 overflow-y-auto border-r border-black/10 bg-white p-4"
+        style={TEXT_STYLE}
       >
-        <div className="flex items-center gap-2 px-2 pt-1">
-          <BrandLogo variant="mark" size={24} priority />
-          <span className="text-[14px] leading-[20px] font-normal text-black">
-            {brand.shortName}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-3 px-2">
+        {/* Section 1 — demo user + divider + tabs + bookmarks */}
+        <div className="flex flex-col gap-1 pb-3">
+          <UserRow />
+          <div className="h-px w-full bg-black/10" role="separator" />
+          <div className="flex items-center gap-3 px-3 py-1">
             <button
               type="button"
               onClick={() => setActiveTab("favorites")}
@@ -85,7 +84,7 @@ export function AppSidebar({ open }: { open: boolean }) {
               Recently
             </button>
           </div>
-          <ul className="flex flex-col">
+          <ul className="flex flex-col gap-1">
             <BookmarkRow label="Overview" />
             <BookmarkRow label="Projects" />
           </ul>
@@ -151,7 +150,28 @@ export function AppSidebar({ open }: { open: boolean }) {
             onToggle={() => toggle("social")}
           />
         </NavSection>
+
+        <div className="mt-auto flex h-9 items-center justify-center gap-2 rounded-[8px] p-2 text-[12px] leading-[18px] text-black/40">
+          <BrandLogo variant="mark" size={16} />
+          <span>{brand.shortName}</span>
+        </div>
       </aside>
+    </div>
+  );
+}
+
+function UserRow() {
+  return (
+    <div className="flex h-10 items-center gap-2 rounded-[8px] p-2">
+      <Image
+        src="/figma/avatars/byewind.png"
+        alt=""
+        width={24}
+        height={24}
+        className="shrink-0 rounded-full object-cover"
+        aria-hidden
+      />
+      <span className="text-[14px] leading-[20px] text-black">ByeWind</span>
     </div>
   );
 }
@@ -164,11 +184,11 @@ function NavSection({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1">
-      <div className="px-2 py-1 text-[12px] leading-[18px] text-black/40">
+    <div className="flex flex-col gap-1 pb-3">
+      <div className="flex h-7 items-center px-3 text-[14px] leading-[20px] text-black/40">
         {label}
       </div>
-      <ul className="flex flex-col">{children}</ul>
+      <ul className="flex flex-col gap-1">{children}</ul>
     </div>
   );
 }
@@ -193,24 +213,20 @@ function NavItem({
   children?: ReactNode;
 }) {
   return (
-    <li className="flex flex-col">
+    <li className="flex flex-col gap-1">
       <div
-        className={`group relative flex items-center gap-1 rounded-[8px] px-2 py-1 ${
+        className={`flex h-9 items-center gap-1 rounded-[12px] p-2 ${
           active ? "bg-black/[0.04]" : "hover:bg-black/[0.04]"
         }`}
       >
-        {active && (
-          <span
-            aria-hidden
-            className="absolute top-1 bottom-1 left-0 w-[3px] rounded-[2px] bg-black"
-          />
-        )}
         {expandable ? (
           <button
             type="button"
             aria-label={expanded ? `Collapse ${label}` : `Expand ${label}`}
             onClick={onToggle}
-            className="flex h-5 w-4 items-center justify-center text-black/20 hover:text-black/60"
+            className={`flex h-4 w-4 shrink-0 items-center justify-center ${
+              active ? "text-black" : "text-black/20"
+            } hover:text-black/60`}
           >
             <CaretRight
               size={12}
@@ -222,18 +238,25 @@ function NavItem({
             />
           </button>
         ) : (
-          <span className="h-5 w-4" aria-hidden />
+          <span
+            className={`flex h-4 w-4 shrink-0 items-center justify-center ${
+              active ? "text-black" : "text-black/20"
+            }`}
+            aria-hidden
+          >
+            <CaretRight size={12} weight="bold" />
+          </span>
         )}
         <Link
           href={href}
-          className="flex min-w-0 flex-1 items-center gap-2 text-[14px] leading-[20px] text-black"
+          className="flex min-w-0 flex-1 items-center gap-1 text-[14px] leading-[20px] text-black"
         >
           <IconCmp size={20} weight="duotone" className="shrink-0" />
           <span className="truncate">{label}</span>
         </Link>
       </div>
       {expandable && expanded && children && (
-        <ul className="flex flex-col pl-8">{children}</ul>
+        <ul className="flex flex-col gap-1">{children}</ul>
       )}
     </li>
   );
@@ -244,7 +267,7 @@ function SubItem({ label }: { label: string }) {
     <li>
       <Link
         href="#"
-        className="flex items-center rounded-[8px] px-2 py-1 text-[14px] leading-[20px] text-black/60 hover:bg-black/[0.04] hover:text-black"
+        className="flex h-9 items-center gap-1 rounded-[12px] p-2 pl-12 text-[14px] leading-[20px] text-black/60 hover:bg-black/[0.04] hover:text-black"
       >
         {label}
       </Link>
@@ -257,10 +280,15 @@ function BookmarkRow({ label }: { label: string }) {
     <li>
       <Link
         href="#"
-        className="flex items-center gap-2 rounded-[8px] px-2 py-1 text-[14px] leading-[20px] text-black hover:bg-black/[0.04]"
+        className="flex h-9 items-center gap-1 rounded-[12px] p-2 text-[14px] leading-[20px] text-black hover:bg-black/[0.04]"
       >
-        <Circle size={8} weight="fill" className="shrink-0 text-black/20" />
-        {label}
+        <span
+          aria-hidden
+          className="flex h-4 w-4 shrink-0 items-center justify-center text-black/20"
+        >
+          <Circle size={6} weight="fill" />
+        </span>
+        <span className="truncate">{label}</span>
       </Link>
     </li>
   );
