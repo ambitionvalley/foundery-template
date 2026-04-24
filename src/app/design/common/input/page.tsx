@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Input, type InputState, type InputType } from "@/components/common/input";
+import { Input, type InputLayout, type InputState } from "@/components/common/input";
 import { BrandLogo } from "@/components/brand-logo";
 import { brand } from "@/config/brand";
 type DocRow = {
@@ -74,12 +74,12 @@ const COLUMNS: { x: number; state: InputState | "default" }[] = [
   { x: 440, state: "default" }, // Static (visually same as default)
 ];
 
-// Row definitions — one type per row, with its Figma y-coordinate.
-const ROWS: { y: number; type: InputType }[] = [
-  { y: 20, type: "2-row-vertical" },
-  { y: 94, type: "2-row-horizontal" },
-  { y: 148, type: "1-row" },
-  { y: 202, type: "textarea" },
+// Row definitions — one layout per row, with its Figma y-coordinate.
+const ROWS: { y: number; layout: InputLayout }[] = [
+  { y: 20, layout: "2-row-vertical" },
+  { y: 94, layout: "2-row-horizontal" },
+  { y: 148, layout: "1-row" },
+  { y: 202, layout: "textarea" },
 ];
 
 /** 1:1 reproduction of the Figma canvas (580×266). */
@@ -102,11 +102,11 @@ function FigmaCanvasRow() {
           {ROWS.map((row) =>
             COLUMNS.map((col) => (
               <div
-                key={`${row.type}-${col.x}`}
+                key={`${row.layout}-${col.x}`}
                 className="absolute"
                 style={{ left: col.x, top: row.y }}
               >
-                <Input type={row.type} state={col.state} />
+                <Input layout={row.layout} state={col.state} />
               </div>
             )),
           )}
@@ -118,11 +118,14 @@ function FigmaCanvasRow() {
 
 function PropsTableRow() {
   const props = [
-    { name: "type", type: '"1-row" | "2-row-vertical" | "2-row-horizontal" | "textarea"', default: '"2-row-vertical"', description: "Layout variant." },
-    { name: "state", type: '"default" | "hover" | "focus"', default: '"default"', description: "Border + focus ring state." },
-    { name: "title", type: "ReactNode", default: '"Title"', description: "Small label (2-row layouts)." },
-    { name: "children", type: "ReactNode", default: '"Text"', description: "Field value." },
-    { name: "counter", type: "ReactNode", default: '"0/200"', description: "Trailing counter (textarea only)." },
+    { name: "layout", type: '"1-row" | "2-row-vertical" | "2-row-horizontal" | "textarea"', default: '"2-row-vertical"', description: "Visual layout (showcase mode)." },
+    { name: "size", type: '"sm" | "lg"', default: '"sm"', description: "Field height (sm=44px, lg=56px)." },
+    { name: "state", type: '"default" | "hover" | "focus"', default: '"default"', description: "Border + focus ring state (showcase)." },
+    { name: "title", type: "ReactNode", default: '"Title"', description: "Small label (2-row showcase layouts)." },
+    { name: "children", type: "ReactNode", default: '"Text"', description: "Field value (showcase mode)." },
+    { name: "counter", type: "ReactNode", default: '"0/200"', description: "Trailing counter (textarea showcase)." },
+    { name: "placeholder", type: "string", default: "—", description: "Enables form-control mode (renders real <input>)." },
+    { name: "type, name, value, onChange, …", type: "HTMLInputAttributes", default: "—", description: "Standard form-control props." },
     { name: "className", type: "string", default: "—", description: "Merged with base classes." },
   ];
 

@@ -9,6 +9,8 @@ export type ButtonProps = Omit<
 > & {
   size?: ButtonSize;
   variant?: ButtonVariant;
+  /** Override the size-default border radius. Use when matching designs that specify a specific rounding. */
+  radius?: number;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   children?: ReactNode;
@@ -63,6 +65,7 @@ function variantClasses(
 export function Button({
   size = "medium",
   variant = "filled",
+  radius,
   leftIcon,
   rightIcon,
   children,
@@ -83,7 +86,7 @@ export function Button({
     minWidth: spec.minSide,
     paddingInline: spec.padX,
     paddingBlock: spec.padY,
-    borderRadius: spec.radius,
+    borderRadius: radius ?? spec.radius,
     gap: spec.gap,
     fontSize: spec.textPx,
     lineHeight: `${spec.textLh}px`,

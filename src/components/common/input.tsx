@@ -1,23 +1,48 @@
-import type { ReactNode } from "react";
+import type {
+  ChangeEventHandler,
+  HTMLAttributes,
+  HTMLInputTypeAttribute,
+  ReactNode,
+} from "react";
 
-export type InputType =
+export type InputLayout =
   | "1-row"
   | "2-row-vertical"
   | "2-row-horizontal"
   | "textarea";
 
+export type InputSize = "sm" | "lg";
+
 export type InputState = "default" | "hover" | "focus";
 
-export type InputProps = {
-  /** Layout: single value, stacked title/value, side-by-side, or multi-line. */
-  type?: InputType;
-  /** Visual state — drives border + focus ring. */
+type FormControlProps = {
+  /** HTML input type. When any form prop is provided, Input renders a real <input>. */
+  type?: HTMLInputTypeAttribute;
+  name?: string;
+  placeholder?: string;
+  autoComplete?: string;
+  inputMode?: HTMLAttributes<HTMLInputElement>["inputMode"];
+  pattern?: string;
+  maxLength?: number;
+  required?: boolean;
+  id?: string;
+  "aria-label"?: string;
+  defaultValue?: string;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+};
+
+export type InputProps = FormControlProps & {
+  /** Visual layout for the design-showcase (no-form) mode. */
+  layout?: InputLayout;
+  /** Size variant. `sm` = 44px (default, matches /design showcase). `lg` = 56px (auth forms). */
+  size?: InputSize;
   state?: InputState;
-  /** Small title label (for 2-row layouts). */
+  /** Label shown in 2-row showcase layouts. Ignored in form-control mode. */
   title?: ReactNode;
-  /** Value text rendered inside the field. */
+  /** Text rendered inside the field (showcase mode). Ignored in form-control mode. */
   children?: ReactNode;
-  /** Character-count suffix for textarea (e.g. "0/200"). */
+  /** Character-count suffix for textarea (showcase mode). */
   counter?: ReactNode;
   className?: string;
 };
@@ -57,24 +82,90 @@ function ResizeCorner() {
 }
 
 /**
- * Input — text-input field primitive covering four layouts and three states.
- * Surface is translucent white (80%) with a hairline border; focus adds a
- * 4px black-4% halo. Textarea adds a trailing character counter and a
- * resize-corner affordance.
+ * Input — the text-entry primitive for both design showcase and real forms.
+ *
+ * Showcase mode (no form props) renders a static visual scaffold — four
+ * layouts × three states. Use `layout`, `state`, `title`, `children` (value),
+ * `counter` (textarea).
+ *
+ * Form-control mode — triggered when ANY of `placeholder`, `name`, `value`,
+ * `defaultValue`, or `onChange` is set — renders a real <input> element.
+ * Two sizes: `sm` (44px, default) and `lg` (56px, 18/28 typography — matches
+ * the Figma auth forms).
  *
  * @example
+ *   // Showcase
  *   <Input>Jane</Input>
- *   <Input title="Email">jane@intakely.com</Input>
- *   <Input type="textarea" counter="12/200">Describe the issue…</Input>
+ *   <Input layout="2-row-vertical" title="Email">jane@example.com</Input>
+ *
+ * @example
+ *   // Form
+ *   <Input size="lg" type="email" name="email" placeholder="Email" />
  */
 export function Input({
-  type = "2-row-vertical",
+  layout = "2-row-vertical",
+  size = "sm",
   state = "default",
   title = "Title",
   children = "Text",
   counter = "0/200",
   className,
+  type,
+  name,
+  placeholder,
+  autoComplete,
+  inputMode,
+  pattern,
+  maxLength,
+  required,
+  id,
+  "aria-label": ariaLabel,
+  defaultValue,
+  value,
+  onChange,
 }: InputProps) {
+  const isFormControl =
+    placeholder !== undefined ||
+    name !== undefined ||
+    value !== undefined ||
+    defaultValue !== undefined ||
+    onChange !== undefined;
+
+  if (isFormControl) {
+    const heightClass = size === "lg" ? "h-14" : "h-11";
+    const padClass = size === "lg" ? "px-5 py-4" : "px-4 py-3";
+    const typoClass =
+      size === "lg"
+        ? "text-[18px] leading-[28px]"
+        : "text-[14px] leading-[20px]";
+    const placeholderClass =
+      size === "lg" ? "placeholder:text-black/20" : "placeholder:text-black/40";
+
+    return (
+      <div
+        className={`relative flex w-full items-center overflow-hidden rounded-[16px] border-[0.5px] border-black/20 bg-white/80 ${padClass} ${heightClass} focus-within:border-black/40 ${className ?? ""}`}
+      >
+        <input
+          type={type ?? "text"}
+          name={name}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          inputMode={inputMode}
+          pattern={pattern}
+          maxLength={maxLength}
+          required={required}
+          id={id}
+          aria-label={ariaLabel}
+          defaultValue={defaultValue}
+          value={value}
+          onChange={onChange}
+          className={`min-w-0 flex-1 bg-transparent ${typoClass} text-black outline-none ${placeholderClass}`}
+          style={TEXT_STYLE}
+        />
+      </div>
+    );
+  }
+
   const border = borderClass(state);
   const focusShadow =
     state === "focus" ? "shadow-[0_0_0_4px_rgba(0,0,0,0.04)]" : "";
@@ -99,7 +190,7 @@ export function Input({
     </span>
   );
 
-  if (type === "2-row-vertical") {
+  if (layout === "2-row-vertical") {
     return (
       <div className={`${base} flex-col items-start justify-center gap-[4px]`}>
         <span className="w-full">{titleEl}</span>
@@ -108,12 +199,15 @@ export function Input({
     );
   }
 
-  if (type === "2-row-horizontal") {
+  if (layout === "2-row-horizontal") {
     return (
       <div className={`${base} items-center gap-[8px]`}>
         <span className="shrink-0">{titleEl}</span>
         <span className="min-w-px flex-1 text-right">
-          <span className="text-[14px] leading-[20px] font-normal text-black" style={TEXT_STYLE}>
+          <span
+            className="text-[14px] leading-[20px] font-normal text-black"
+            style={TEXT_STYLE}
+          >
             {children}
           </span>
         </span>
@@ -121,7 +215,7 @@ export function Input({
     );
   }
 
-  if (type === "1-row") {
+  if (layout === "1-row") {
     return (
       <div className={`${base} flex-col items-start justify-center`}>
         <span className="w-full">{valueEl}</span>
