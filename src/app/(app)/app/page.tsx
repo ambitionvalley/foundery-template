@@ -1,3 +1,4 @@
+import { MarketingAndSeo } from "@/components/app/marketing-and-seo";
 import { StatCard } from "@/components/app/stat-card";
 import { TotalUsersChart } from "@/components/app/total-users-chart";
 import { TrafficByDevice } from "@/components/app/traffic-by-device";
@@ -54,9 +55,7 @@ export default function AppPage() {
         <TrafficByLocation />
       </div>
 
-      <div className="rounded-[16px] border border-dashed border-black/15 p-10 text-center text-[13px] leading-[20px] text-black/40">
-        Marketing &amp; SEO — fleshed out in Part 8.
-      </div>
+      <MarketingAndSeo />
     </div>
   );
 }
