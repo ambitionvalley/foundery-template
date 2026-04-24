@@ -174,7 +174,7 @@ function LoginCard() {
           <Link href="/signup" className="hover:text-black">
             Sign Up
           </Link>
-          <Link href="#" className="hover:text-black">
+          <Link href="/forgot-password" className="hover:text-black">
             Forgot Password
           </Link>
           <Link href="#" className="hover:text-black">
