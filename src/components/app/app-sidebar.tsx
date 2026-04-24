@@ -13,7 +13,6 @@ import {
   UsersThree,
   type Icon,
 } from "@phosphor-icons/react";
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -163,14 +162,14 @@ export function AppSidebar({ open }: { open: boolean }) {
 function UserRow() {
   return (
     <div className="flex h-10 items-center gap-2 rounded-[8px] p-2">
-      <Image
-        src="/figma/avatars/byewind.png"
-        alt=""
-        width={24}
-        height={24}
-        className="shrink-0 rounded-full object-cover"
-        aria-hidden
-      />
+      <span className="relative block size-6 shrink-0 overflow-hidden rounded-full bg-black/[0.04]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/figma/avatars/byewind.png"
+          alt=""
+          className="absolute inset-0 size-full object-cover"
+        />
+      </span>
       <span className="text-[14px] leading-[20px] text-black">ByeWind</span>
     </div>
   );
