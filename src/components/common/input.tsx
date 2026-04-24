@@ -44,6 +44,8 @@ export type InputProps = FormControlProps & {
   children?: ReactNode;
   /** Character-count suffix for textarea (showcase mode). */
   counter?: ReactNode;
+  /** Trailing slot rendered to the right of the input in form-control mode (e.g. clear × or show-password toggle). */
+  trailing?: ReactNode;
   className?: string;
 };
 
@@ -109,6 +111,7 @@ export function Input({
   title = "Title",
   children = "Text",
   counter = "0/200",
+  trailing,
   className,
   type,
   name,
@@ -143,7 +146,7 @@ export function Input({
 
     return (
       <div
-        className={`relative flex w-full items-center overflow-hidden rounded-[16px] border-[0.5px] border-black/20 bg-white/80 ${padClass} ${heightClass} focus-within:border-black/40 ${className ?? ""}`}
+        className={`relative flex w-full items-center gap-2 overflow-hidden rounded-[16px] border-[0.5px] border-black/20 bg-white/80 ${padClass} ${heightClass} focus-within:border-black/40 ${className ?? ""}`}
       >
         <input
           type={type ?? "text"}
@@ -162,6 +165,7 @@ export function Input({
           className={`min-w-0 flex-1 bg-transparent ${typoClass} text-black outline-none ${placeholderClass}`}
           style={TEXT_STYLE}
         />
+        {trailing && <span className="flex shrink-0 items-center">{trailing}</span>}
       </div>
     );
   }

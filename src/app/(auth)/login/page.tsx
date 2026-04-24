@@ -11,6 +11,8 @@ import { BrandLogo } from "@/components/brand-logo";
 
 type LoginMode = "password" | "passwordless";
 
+const RETURNING_AVATAR = "/figma/avatar-3d-03.png";
+
 export default function LoginPage() {
   return (
     <Suspense fallback={<LoginCardSkeleton />}>
@@ -24,6 +26,9 @@ function LoginCard() {
   const params = useSearchParams();
   const mode: LoginMode =
     params.get("mode") === "passwordless" ? "passwordless" : "password";
+  const rememberedUser = params.get("user");
+  const isReturning = Boolean(rememberedUser);
+
   const switchHref = mode === "password" ? "/login?mode=passwordless" : "/login";
   const switchLabel =
     mode === "password"
@@ -43,6 +48,10 @@ function LoginCard() {
     if (identifier) query.set("contact", identifier);
     router.push(`/verify?${query.toString()}`);
   }
+
+  const displayName = isReturning
+    ? deriveNameFromIdentifier(rememberedUser ?? "")
+    : null;
 
   return (
     <section
@@ -65,14 +74,27 @@ function LoginCard() {
       </Link>
 
       <div className="flex w-full max-w-[313px] flex-col items-center gap-7">
-        <BrandLogo variant="mark" size={80} priority />
+        {isReturning ? (
+          <div className="h-20 w-20 overflow-hidden rounded-full bg-black/[0.04]">
+            <Image
+              src={RETURNING_AVATAR}
+              alt={displayName ?? "Your account"}
+              width={80}
+              height={80}
+              priority
+              className="h-full w-full object-cover"
+            />
+          </div>
+        ) : (
+          <BrandLogo variant="mark" size={80} priority />
+        )}
 
         <h1
           id="signin-heading"
-          className="text-[24px] leading-[32px] font-semibold text-black"
+          className="text-center text-[24px] leading-[32px] font-semibold text-black"
           style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
         >
-          Sign In
+          {isReturning ? `Welcome back, ${displayName}` : "Sign In"}
         </h1>
 
         <div className="flex w-full items-center gap-2">
@@ -112,6 +134,8 @@ function LoginCard() {
             autoComplete="username"
             placeholder="Email or Phone number"
             aria-label="Email or Phone number"
+            defaultValue={isReturning ? (rememberedUser ?? undefined) : undefined}
+            trailing={isReturning ? <ClearUserButton /> : undefined}
           />
           {mode === "password" && (
             <Input
@@ -132,13 +156,15 @@ function LoginCard() {
           >
             Sign In
           </Button>
-          <Link
-            href={switchHref}
-            className="text-[14px] leading-[20px] text-[#adadfb] hover:text-black"
-            style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
-          >
-            {switchLabel}
-          </Link>
+          {!isReturning && (
+            <Link
+              href={switchHref}
+              className="text-[14px] leading-[20px] text-[#adadfb] hover:text-black"
+              style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
+            >
+              {switchLabel}
+            </Link>
+          )}
         </form>
 
         <div
@@ -158,6 +184,28 @@ function LoginCard() {
       </div>
     </section>
   );
+}
+
+function ClearUserButton() {
+  // "Forget this account" — strips ?user= so /login reverts to its empty state.
+  // Fork-owners replace this with a real localStorage/cookie wipe + reload.
+  return (
+    <Link
+      href="/login"
+      aria-label="Use another account"
+      className="flex h-5 w-5 items-center justify-center text-black/30 hover:text-black"
+    >
+      <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor" aria-hidden>
+        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,130.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32L139.31,128Z" />
+      </svg>
+    </Link>
+  );
+}
+
+function deriveNameFromIdentifier(identifier: string): string {
+  const local = identifier.split("@")[0] ?? identifier;
+  if (!local) return "there";
+  return local.charAt(0).toUpperCase() + local.slice(1);
 }
 
 function LoginCardSkeleton() {
