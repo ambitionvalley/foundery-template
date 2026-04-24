@@ -13,17 +13,23 @@ export default function SignupPage() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // TODO: replace with real signup (Supabase, Auth0, …). For the template
-    // we route to the verification screen with a `next` that continues to
-    // the password-setup step.
+    // TODO: replace with real signup (Supabase, Auth0, …).
+    // Email → verify directly with a `next` that continues to password setup.
+    // Phone → detour through /signup/country so the user picks a dial code
+    // before we format the contact for SMS verification.
     const data = new FormData(event.currentTarget);
     const identifier = (data.get("identifier") ?? "").toString().trim();
-    const verifyMethod = identifier.includes("@") ? "email" : "sms";
+    if (!identifier.includes("@")) {
+      const q = new URLSearchParams();
+      if (identifier) q.set("phone", identifier);
+      router.push(`/signup/country?${q.toString()}`);
+      return;
+    }
     const query = new URLSearchParams({
-      method: verifyMethod,
+      method: "email",
       next: "/signup/password",
+      contact: identifier,
     });
-    if (identifier) query.set("contact", identifier);
     router.push(`/verify?${query.toString()}`);
   }
 
