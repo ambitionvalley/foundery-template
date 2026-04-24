@@ -3,18 +3,33 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-// Top bar for the app shell. All controls are template-wired (no-op or
-// inert) — fork-owners replace theme toggle, search, breadcrumb generation,
-// and notifications trigger with their real implementations.
-export function AppTopbar() {
+// Top bar for the app shell. Sticky to the viewport so it stays visible
+// while the main column scrolls. AppShell drives the sidebar/right-panel
+// collapse state via props. Other controls (theme, search, history,
+// notifications) are template-wired — fork-owners swap for real impls.
+export function AppTopbar({
+  leftOpen,
+  rightOpen,
+  onToggleLeft,
+  onToggleRight,
+}: {
+  leftOpen: boolean;
+  rightOpen: boolean;
+  onToggleLeft: () => void;
+  onToggleRight: () => void;
+}) {
   return (
     <header
       role="banner"
-      className="flex h-[60px] items-center justify-between border-b border-black/10 bg-white px-7"
+      className="sticky top-0 z-20 flex h-[60px] items-center justify-between border-b border-black/10 bg-white px-7"
       style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
     >
       <div className="flex items-center gap-3">
-        <IconButton label="Toggle sidebar">
+        <IconButton
+          label={leftOpen ? "Collapse sidebar" : "Expand sidebar"}
+          onClick={onToggleLeft}
+          pressed={!leftOpen}
+        >
           <PanelLeftIcon />
         </IconButton>
         <IconButton label="Add to favorites">
@@ -66,7 +81,11 @@ export function AppTopbar() {
         <IconButton label="Notifications">
           <BellIcon />
         </IconButton>
-        <IconButton label="Toggle right panel">
+        <IconButton
+          label={rightOpen ? "Collapse right panel" : "Expand right panel"}
+          onClick={onToggleRight}
+          pressed={!rightOpen}
+        >
           <PanelRightIcon />
         </IconButton>
       </div>
@@ -77,14 +96,21 @@ export function AppTopbar() {
 function IconButton({
   label,
   children,
+  onClick,
+  pressed,
 }: {
   label: string;
   children: ReactNode;
+  onClick?: () => void;
+  /** When defined, button is treated as a toggle and announces its state. */
+  pressed?: boolean;
 }) {
   return (
     <button
       type="button"
       aria-label={label}
+      aria-pressed={pressed}
+      onClick={onClick}
       className="flex h-8 w-8 items-center justify-center rounded-[8px] text-black hover:bg-black/[0.04]"
     >
       {children}

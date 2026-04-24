@@ -16,7 +16,7 @@ type NavKey =
   | "blog"
   | "social";
 
-export function AppSidebar() {
+export function AppSidebar({ open }: { open: boolean }) {
   // Template state — in a real app the active route drives this.
   const [activeTab, setActiveTab] = useState<"favorites" | "recently">(
     "favorites",
@@ -37,12 +37,17 @@ export function AppSidebar() {
   }
 
   return (
-    <aside
-      aria-label="Primary navigation"
-      className="flex w-[212px] shrink-0 flex-col gap-4 border-r border-black/10 bg-white p-4"
-      style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
+    <div
+      className="sticky top-0 z-10 h-screen shrink-0 overflow-hidden transition-[width] duration-200 ease-out"
+      style={{ width: open ? 212 : 0 }}
+      inert={!open}
     >
-      <div className="flex items-center gap-2 px-2 pt-1">
+      <aside
+        aria-label="Primary navigation"
+        className="flex h-full w-[212px] flex-col gap-4 overflow-y-auto border-r border-black/10 bg-white p-4"
+        style={{ fontFeatureSettings: "'ss01' 1, 'cv01' 1" }}
+      >
+        <div className="flex items-center gap-2 px-2 pt-1">
         <BrandLogo variant="mark" size={24} priority />
         <span className="text-[14px] leading-[20px] font-normal text-black">
           {brand.shortName}
@@ -142,11 +147,12 @@ export function AppSidebar() {
         />
       </NavSection>
 
-      <div className="mt-auto flex items-center gap-2 px-2 pb-1 text-[12px] leading-[18px] text-black/40">
-        <BrandLogo variant="mark" size={16} />
-        <span>by {brand.shortName}</span>
-      </div>
-    </aside>
+        <div className="mt-auto flex items-center gap-2 px-2 pb-1 text-[12px] leading-[18px] text-black/40">
+          <BrandLogo variant="mark" size={16} />
+          <span>by {brand.shortName}</span>
+        </div>
+      </aside>
+    </div>
   );
 }
 
