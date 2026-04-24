@@ -16,6 +16,8 @@ export type ActivitiesProps = {
   items?: ActivityItem[];
   /** Fallback row count when <code>items</code> is omitted. 1–5. */
   count?: 1 | 2 | 3 | 4 | 5;
+  /** `card` (default popover) or `flat` (embedded in a panel). */
+  variant?: "card" | "flat";
   className?: string;
 };
 
@@ -58,17 +60,23 @@ function Avatar({ value }: { value: ActivityItem["avatar"] }) {
  *   <Activities />
  *   <Activities title="Team" items={[{ avatar: url, label: "Shipped", time: "2m" }]} />
  */
+const SHELL = {
+  card: "w-[248px] rounded-[24px] bg-white/90 p-[20px] shadow-[0_8px_28px_0_rgba(0,0,0,0.1)] backdrop-blur-[20px]",
+  flat: "w-full",
+} as const;
+
 export function Activities({
   title = "Activities",
   items,
   count = 5,
+  variant = "card",
   className,
 }: ActivitiesProps) {
   const rows = items ?? DEFAULT_ITEMS.slice(0, count);
 
   return (
     <div
-      className={`flex w-[248px] flex-col items-start gap-[4px] rounded-[24px] bg-white/90 p-[20px] shadow-[0_8px_28px_0_rgba(0,0,0,0.1)] backdrop-blur-[20px] ${className ?? ""}`}
+      className={`flex flex-col items-start gap-[4px] ${SHELL[variant]} ${className ?? ""}`}
     >
       <div className="flex w-full shrink-0 flex-col items-start justify-center rounded-[12px] px-[4px] py-[8px]">
         <p

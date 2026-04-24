@@ -10,6 +10,8 @@ export type ContactsProps = {
   title?: string;
   /** Contact rows — rendered in order. */
   items?: ContactItem[];
+  /** `card` (default popover) or `flat` (embedded in a panel). */
+  variant?: "card" | "flat";
   className?: string;
 };
 
@@ -33,14 +35,20 @@ const DEFAULT_ITEMS: ContactItem[] = [
  *   <Contacts items={team} />
  *   <Contacts title="Starred" items={starred} />
  */
+const SHELL = {
+  card: "w-[248px] rounded-[24px] bg-white/90 p-[20px] shadow-[0px_8px_28px_0px_rgba(0,0,0,0.1)] backdrop-blur-[40px]",
+  flat: "w-full",
+} as const;
+
 export function Contacts({
   title = "Contacts",
   items = DEFAULT_ITEMS,
+  variant = "card",
   className,
 }: ContactsProps) {
   return (
     <div
-      className={`flex w-[248px] flex-col items-start gap-[4px] rounded-[24px] bg-white/90 p-[20px] shadow-[0px_8px_28px_0px_rgba(0,0,0,0.1)] backdrop-blur-[40px] ${className ?? ""}`}
+      className={`flex flex-col items-start gap-[4px] ${SHELL[variant]} ${className ?? ""}`}
     >
       <div className="flex w-full flex-col items-start justify-center rounded-[12px] px-[4px] py-[8px]">
         <p
