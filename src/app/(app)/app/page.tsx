@@ -1,3 +1,5 @@
+import { StatCard } from "@/components/app/stat-card";
+
 export default function AppPage() {
   return (
     <div className="flex flex-col gap-7">
@@ -25,10 +27,22 @@ export default function AppPage() {
           </svg>
         </button>
       </div>
+
+      <div className="flex gap-7">
+        <StatCard label="Views" value="7,265" delta="+11.01%" tone="lilac" />
+        <StatCard label="Visits" value="3,671" delta="-0.03%" />
+        <StatCard label="New Users" value="256" delta="+15.03%" />
+        <StatCard
+          label="Active Users"
+          value="2,318"
+          delta="+6.08%"
+          tone="blue"
+        />
+      </div>
+
       <div className="rounded-[16px] border border-dashed border-black/15 p-10 text-center text-[13px] leading-[20px] text-black/40">
-        KPI cards · Total Users chart · Traffic widgets · Marketing &amp; SEO
-        <br />
-        Fleshed out in Parts 5–8.
+        Total Users chart · Traffic widgets · Marketing &amp; SEO — fleshed out in
+        Parts 6–8.
       </div>
     </div>
   );
